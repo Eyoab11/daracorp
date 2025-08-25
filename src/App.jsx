@@ -5,6 +5,8 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { Dashboard } from './pages/Dashboard';
 import Home from './pages/Home';
+import Courses from './pages/Courses';
+import AfroLMS from './pages/AfroLMS';
 import { trainings as defaultTrainings } from './data/trainings';
 
 export default function App() {
@@ -164,6 +166,8 @@ function Shell() {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home lang={lang} ui={ui} trainings={trainings} t={t} setLang={setLang} />} />
           <Route path="/dashboard" element={<Dashboard trainings={trainings} lang={lang} />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/afrolms" element={<AfroLMS />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AnimatePresence>

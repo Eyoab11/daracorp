@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 
@@ -35,8 +36,8 @@ export default function Navbar({ lang, t, onScrollTo, setLang }) {
 
         {/* Center nav */}
         <nav className="hidden md:flex items-center gap-10 text-sm md:text-base font-medium text-gray-700">
-          <button onClick={() => onScrollTo('courses')} className="hover:text-blue-600 transition-colors">{t('nav.courses') || 'Courses'}</button>
-          <button onClick={() => onScrollTo('platform')} className="hover:text-blue-600 transition-colors">AfroLMS</button>
+          <Link to="/courses" className="hover:text-blue-600 transition-colors">{t('nav.courses') || 'Courses'}</Link>
+          <Link to="/afrolms" className="hover:text-blue-600 transition-colors">AfroLMS</Link>
           <button onClick={() => onScrollTo('why')} className="hover:text-blue-600 transition-colors">{t('nav.why') || 'Why DaraCorp'}</button>
           <button onClick={() => onScrollTo('contact')} className="hover:text-blue-600 transition-colors">{t('nav.contact') || 'Contact'}</button>
         </nav>
