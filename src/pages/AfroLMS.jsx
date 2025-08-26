@@ -221,23 +221,6 @@ export default function AfroLMS() {
           ))}
         </div>
       </Section>
-
-      
-
-      {/* CTA */}
-      <BottomCTA
-        t={(k) => ({
-          'cta.title': 'Launch DaraCorp training on AfroLMS',
-          'cta.body': 'Get a guided demo, connect SSO, and start a pilot for your team in days — not months.',
-          'cta.primary': 'Request demo',
-          'cta.secondary': 'See features',
-        })[k]}
-        onPrimary={() => {
-          if (window.location.pathname !== '/') window.history.pushState({}, '', '/');
-          setTimeout(() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }), 60);
-        }}
-        onSecondary={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      />
     </div>
   );
 }

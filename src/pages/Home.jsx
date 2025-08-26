@@ -96,53 +96,53 @@ export default function Home({ lang, ui, trainings, t, setLang }) {
   </motion.section>
 
   <motion.section id="platform" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.4 }} className="py-20 lg:py-28 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">{t('platformTitle')}</h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">{t('platformDesc')}</p>
-          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 text-left">
-            {(t('platformFeatures') || []).map?.((f, i) => (
-              <div key={i} className="rounded-3xl bg-white shadow-lg px-6 py-6 md:px-8 md:py-8 border border-gray-100">
-                <h3 className="text-2xl font-extrabold text-gray-900">{f.title}</h3>
-                <p className="mt-3 text-gray-600 leading-relaxed">{f.desc}</p>
-              </div>
-            ))}
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">{t('platformTitle')}</h2>
+      <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">{t('platformDesc')}</p>
+      <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 text-left">
+        {(t('platformFeatures') || []).map?.((f, i) => (
+          <div key={i} className="rounded-3xl bg-white shadow-lg px-6 py-6 md:px-8 md:py-8 border border-gray-100">
+            <h3 className="text-2xl font-extrabold text-gray-900">{f.title}</h3>
+            <p className="mt-3 text-gray-600 leading-relaxed">{f.desc}</p>
           </div>
-        </div>
+        ))}
+      </div>
+    </div>
   </motion.section>
 
   {/* Sectors we serve */}
   <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.4 }} className="py-20 lg:py-28 bg-gray-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">{t('sectorsTitle')}</h2>
-            <p className="mt-4 text-lg text-gray-600">{t('sectorsSubtitle')}</p>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="text-center mb-12">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">{t('sectorsTitle')}</h2>
+        <p className="mt-4 text-lg text-gray-600">{t('sectorsSubtitle')}</p>
+      </div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        {(t('sectors') || []).map?.((s, idx) => (
+          <div key={idx} className="rounded-3xl bg-white shadow-lg px-6 py-6 md:px-8 md:py-8 border border-gray-100">
+            <h3 className="text-2xl font-extrabold text-gray-900">{s.title}</h3>
+            <p className="mt-3 text-gray-600 leading-relaxed">{s.desc}</p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {(t('sectors') || []).map?.((s, idx) => (
-              <div key={idx} className="rounded-3xl bg-white shadow-lg px-6 py-6 md:px-8 md:py-8 border border-gray-100">
-                <h3 className="text-2xl font-extrabold text-gray-900">{s.title}</h3>
-                <p className="mt-3 text-gray-600 leading-relaxed">{s.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        ))}
+      </div>
+    </div>
   </motion.section>
 
   <motion.section id="why" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.4 }} className="py-20 lg:py-28 bg-gray-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">{t('whyTitle')}</h2>
-            <p className="mt-4 text-lg text-gray-600">{t('whySubtitle')}</p>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="text-center mb-12">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">{t('whyTitle')}</h2>
+        <p className="mt-4 text-lg text-gray-600">{t('whySubtitle')}</p>
+      </div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        {(t('whyFeatures') || []).map?.((f, i) => (
+          <div key={i} className="rounded-3xl bg-white shadow-lg px-6 py-6 md:px-8 md:py-8 border border-gray-100">
+            <h3 className="text-2xl font-extrabold text-gray-900">{f.title}</h3>
+            <p className="mt-3 text-gray-600 leading-relaxed">{f.desc}</p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {(t('whyFeatures') || []).map?.((f, i) => (
-              <div key={i} className="rounded-3xl bg-white shadow-lg px-6 py-6 md:px-8 md:py-8 border border-gray-100">
-                <h3 className="text-2xl font-extrabold text-gray-900">{f.title}</h3>
-                <p className="mt-3 text-gray-600 leading-relaxed">{f.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        ))}
+      </div>
+    </div>
   </motion.section>
 
       <BottomCTA
