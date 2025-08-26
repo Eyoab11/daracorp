@@ -32,11 +32,11 @@ export default function AfroLMS() {
           <img
             src={AfrolmsHero}
             alt="AfroLMS hero"
-            className="h-full w-full object-cover object-center grayscale"
+            className="h-full w-full object-cover object-center afro-hero-image"
           />
-          {/* Dark overlay for contrast + slight bottom fade like the reference */}
-          <div className="absolute inset-0 bg-black/55" />
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/40 to-transparent" />
+          {/* Theme-aware overlays: lighter in light mode, darker in dark mode */}
+          <div className="absolute inset-0 afro-hero-overlay" />
+          <div className="absolute inset-x-0 bottom-0 h-40 afro-hero-fade" />
         </div>
         {/* Spacer to show only the image at the top */}
         <div className="relative h-[60vh] md:h-[75vh]" />
@@ -78,7 +78,15 @@ export default function AfroLMS() {
         <div className="grid gap-6 lg:gap-8 grid-cols-1 lg:grid-cols-3 items-stretch">
           {/* Big media preview */}
           <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.45 }} className="lg:col-span-1 rounded-3xl overflow-hidden shadow-lg border border-gray-100">
-            <div className="aspect-[4/3] bg-gradient-to-br from-blue-50 to-indigo-50 relative">
+            <div className="aspect-[4/3] relative">
+              <img
+                src="https://media.istockphoto.com/id/1488294044/photo/businessman-works-on-laptop-showing-business-analytics-dashboard-with-charts-metrics-and-kpi.jpg?s=612x612&w=0&k=20&c=AcxzQAe1LY4lGp0C6EQ6reI7ZkFC2ftS09yw_3BVkpk="
+                alt="Analytics dashboard preview"
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 media-card-overlay" />
               <div className="absolute inset-0 grid place-items-center">
                 <div className="rounded-2xl bg-white/80 backdrop-blur px-6 py-4 shadow-sm border border-white/70">
                   <p className="text-sm text-gray-600">Dashboard preview</p>
@@ -110,14 +118,21 @@ export default function AfroLMS() {
         {/* Stats row */}
         <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            ['99.9%', 'uptime'],
-            ['1M+', 'learners delivered'],
-            ['200+', 'organizations'],
-            ['24/7', 'support'],
-          ].map(([n, l], i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.35 }} className="rounded-2xl bg-gradient-to-br from-indigo-50 to-blue-50 p-6 text-center border border-indigo-100">
-              <div className="text-3xl md:text-4xl font-extrabold text-indigo-700">{n}</div>
-              <div className="text-sm uppercase tracking-wide text-indigo-900/70">{l}</div>
+            { n: '99.9%', l: 'uptime', accent: 'indigo' },
+            { n: '1M+', l: 'learners delivered', accent: 'blue' },
+            { n: '200+', l: 'organizations', accent: 'emerald' },
+            { n: '24/7', l: 'support', accent: 'amber' },
+          ].map(({ n, l, accent }, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35 }}
+              className={`metric-card metric-accent-${accent}`}
+            >
+              <div className="metric-number">{n}</div>
+              <div className="metric-label">{l}</div>
             </motion.div>
           ))}
         </div>
@@ -185,7 +200,7 @@ export default function AfroLMS() {
                 className={`relative py-6 md:py-8 ${i % 2 ? 'pl-8 md:pl-16' : 'pr-8 md:pr-16'}`}
               >
                 <div className={`md:w-1/2 ${i % 2 ? 'md:ml-auto' : ''}`}>
-                  <div className="rounded-3xl bg-white/95 backdrop-blur px-6 py-6 md:px-8 md:py-8 border border-gray-100 shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="sector-card">
                     <h3 className="text-xl font-extrabold text-gray-900">{f.t}</h3>
                     <p className="mt-3 text-gray-600 leading-relaxed">{f.d}</p>
                   </div>

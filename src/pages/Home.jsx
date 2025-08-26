@@ -12,7 +12,7 @@ export default function Home({ lang, ui, trainings, t, setLang }) {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45 }}
-        className="relative bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-[calc(100vh-5rem)]"
+        className="relative hero-gradient min-h-[calc(100vh-5rem)]"
       >
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24 grid lg:grid-cols-2 gap-16 items-center">
           {/* Left copy */}

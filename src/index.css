@@ -1,1 +1,360 @@
 @import "tailwindcss";
+
+/* Manual theme implementation */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light theme (default) */
+body {
+  background-color: #f9fafb;
+  color: #1f2937;
+}
+
+/* Dark theme */
+body.dark-theme {
+  background-color: #111827;
+  color: #f9fafb;
+}
+
+/* Dark theme overrides for all UI elements */
+body.dark-theme .bg-white { background-color: #1f2937 !important; }
+body.dark-theme .bg-gray-50 { background-color: #111827 !important; }
+body.dark-theme .bg-gray-100 { background-color: #374151 !important; }
+body.dark-theme .bg-gray-200 { background-color: #4b5563 !important; }
+body.dark-theme .bg-gray-300 { background-color: #6b7280 !important; }
+body.dark-theme .bg-gray-800 { background-color: #1f2937 !important; }
+body.dark-theme .bg-gray-900 { background-color: #111827 !important; }
+
+/* Text colors for dark theme */
+body.dark-theme .text-gray-900 { color: #f9fafb !important; }
+body.dark-theme .text-gray-800 { color: #f3f4f6 !important; }
+body.dark-theme .text-gray-700 { color: #e5e7eb !important; }
+body.dark-theme .text-gray-600 { color: #d1d5db !important; }
+body.dark-theme .text-gray-500 { color: #9ca3af !important; }
+body.dark-theme .text-gray-400 { color: #6b7280 !important; }
+body.dark-theme .text-gray-300 { color: #d1d5db !important; }
+body.dark-theme .text-gray-200 { color: #e5e7eb !important; }
+body.dark-theme .text-gray-100 { color: #f3f4f6 !important; }
+
+/* Border colors for dark theme */
+body.dark-theme .border-gray-200 { border-color: #4b5563 !important; }
+body.dark-theme .border-gray-300 { border-color: #6b7280 !important; }
+body.dark-theme .border-gray-400 { border-color: #9ca3af !important; }
+body.dark-theme .border-gray-700 { border-color: #4b5563 !important; }
+
+/* Ring colors for dark theme */
+body.dark-theme .ring-gray-200 { --tw-ring-color: #4b5563 !important; }
+body.dark-theme .ring-gray-300 { --tw-ring-color: #6b7280 !important; }
+
+/* Hover states for dark theme */
+body.dark-theme .hover\:bg-gray-50:hover { background-color: #374151 !important; }
+body.dark-theme .hover\:bg-gray-100:hover { background-color: #4b5563 !important; }
+body.dark-theme .hover\:bg-gray-200:hover { background-color: #6b7280 !important; }
+body.dark-theme .hover\:bg-white:hover { background-color: #1f2937 !important; }
+
+/* Focus states for dark theme */
+body.dark-theme .focus\:bg-gray-50:focus { background-color: #374151 !important; }
+body.dark-theme .focus\:bg-gray-100:focus { background-color: #4b5563 !important; }
+
+/* Shadow adjustments for dark theme */
+body.dark-theme .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3) !important; }
+body.dark-theme .shadow { box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.3) !important; }
+body.dark-theme .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3) !important; }
+body.dark-theme .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3) !important; }
+body.dark-theme .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2) !important; }
+
+/* Card and component backgrounds */
+body.dark-theme .bg-white\/90 { background-color: rgba(31, 41, 55, 0.9) !important; }
+body.dark-theme .bg-white\/85 { background-color: rgba(31, 41, 55, 0.85) !important; }
+body.dark-theme .bg-gray-800\/90 { background-color: rgba(31, 41, 55, 0.9) !important; }
+
+/* Form elements */
+body.dark-theme input,
+body.dark-theme textarea,
+body.dark-theme select {
+  background-color: #374151 !important;
+  border-color: #6b7280 !important;
+  color: #f9fafb !important;
+}
+
+body.dark-theme input::placeholder,
+body.dark-theme textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+body.dark-theme input:focus,
+body.dark-theme textarea:focus,
+body.dark-theme select:focus {
+  border-color: #3b82f6 !important;
+  --tw-ring-color: #3b82f6 !important;
+}
+
+/* Button adjustments for dark theme */
+body.dark-theme .bg-blue-600 { background-color: #2563eb !important; }
+body.dark-theme .hover\:bg-blue-700:hover { background-color: #1d4ed8 !important; }
+/* Blue tints in dark theme (badges, pills) */
+body.dark-theme .bg-blue-50 { background-color: rgba(59, 130, 246, 0.08) !important; }
+body.dark-theme .bg-blue-100 { background-color: rgba(59, 130, 246, 0.18) !important; }
+body.dark-theme .text-blue-800 { color: #93c5fd !important; }
+
+/* Slate palette overrides (Footer uses slate colors) */
+body.dark-theme .text-slate-900 { color: #f1f5f9 !important; }
+body.dark-theme .text-slate-800 { color: #e2e8f0 !important; }
+body.dark-theme .text-slate-700 { color: #e2e8f0 !important; }
+body.dark-theme .text-slate-600 { color: #cbd5e1 !important; }
+body.dark-theme .text-slate-500 { color: #94a3b8 !important; }
+body.dark-theme .border-slate-300 { border-color: #475569 !important; }
+
+/* AfroLMS cards: borders and surfaces */
+body.dark-theme .border-gray-100 { border-color: #374151 !important; }
+body.dark-theme .border-gray-200 { border-color: #4b5563 !important; }
+body.dark-theme .border-indigo-100 { border-color: #374151 !important; }
+body.dark-theme .border-white\/70 { border-color: rgba(255, 255, 255, 0.12) !important; }
+body.dark-theme .bg-white\/95 { background-color: rgba(31, 41, 55, 0.95) !important; }
+body.dark-theme .bg-white\/90 { background-color: rgba(31, 41, 55, 0.90) !important; }
+body.dark-theme .bg-white\/85 { background-color: rgba(31, 41, 55, 0.85) !important; }
+body.dark-theme .bg-white\/80 { background-color: rgba(31, 41, 55, 0.80) !important; }
+body.dark-theme .hover\:bg-gray-50:hover { background-color: #374151 !important; }
+
+/* Gradient cards used in stats row and media preview */
+body.dark-theme .bg-gradient-to-br.from-indigo-50.to-blue-50 { background-image: none !important; background-color: #1f2937 !important; }
+body.dark-theme .bg-gradient-to-br.from-blue-50.to-indigo-50 { background-image: none !important; background-color: #1f2937 !important; }
+/* Indigo text accents in stats */
+body.dark-theme .text-indigo-700 { color: #a5b4fc !important; }
+body.dark-theme .text-indigo-900\/70 { color: rgba(199, 210, 254, 0.7) !important; }
+
+/* Specific component overrides */
+body.dark-theme .backdrop-blur {
+  backdrop-filter: blur(8px) !important;
+}
+
+/* Header surface (navbar background) */
+.header-surface {
+  background-color: rgba(255, 255, 255, 0.9);
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.0), rgba(248,250,252,0.7)); /* faint wash */
+  border-bottom: 1px solid rgba(226, 232, 240, 0.7); /* slate-200 */
+}
+body.dark-theme .header-surface {
+  background-color: rgba(17, 24, 39, 0.85); /* gray-900 at 85% */
+  background-image: none;
+  border-bottom: 1px solid rgba(55, 65, 81, 0.7); /* gray-700 */
+}
+
+/* Brand subtitle: enforce contrast and weight */
+.brand-title {
+  color: #0f172a !important; /* slate-900 */
+  font-weight: 800;
+  opacity: 1 !important;
+}
+body.dark-theme .brand-title {
+  color: #ffffff !important;
+}
+
+.brand-subtitle {
+  color: #000000 !important;
+  font-weight: 700; /* bold for readability */
+  line-height: 1.1;
+  opacity: 1 !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.25); /* lift on light bg */
+}
+body.dark-theme .brand-subtitle {
+  color: #ffffff !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+}
+
+/* Logo tile subtle ring for light backgrounds */
+.logo-tile {
+  box-shadow:
+    inset 0 0 0 1px rgba(226,232,240,0.9), /* inner ring slate-200 */
+    0 10px 15px -3px rgba(0,0,0,0.1),
+    0 4px 6px -4px rgba(0,0,0,0.1);
+}
+body.dark-theme .logo-tile {
+  box-shadow:
+    inset 0 0 0 1px rgba(55,65,81,0.8), /* gray-700 */
+    0 10px 15px -3px rgba(0,0,0,0.5),
+    0 4px 6px -4px rgba(0,0,0,0.4);
+}
+
+/* Navbar link styles for better light-mode contrast */
+.nav-link { color: #475569; /* slate-600 */ transition: color .15s ease; }
+.nav-link:hover { color: #0f172a; /* slate-900 */ }
+.nav-link-active { color: #2563eb; /* blue-600 */ }
+body.dark-theme .nav-link { color: #cbd5e1; /* slate-300 */ }
+body.dark-theme .nav-link:hover { color: #93c5fd; /* blue-300 */ }
+body.dark-theme .nav-link-active { color: #60a5fa; /* blue-400 */ }
+
+/* Language pill (desktop) */
+.lang-button {
+  background-color: #ffffff;
+  border: 1px solid rgba(226,232,240,0.9); /* slate-200 */
+  color: #334155; /* slate-700 */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+.lang-button:hover { background-color: #f8fafc; }
+body.dark-theme .lang-button {
+  background-color: rgba(31,41,55,0.9);
+  border-color: #374151; /* gray-700 */
+  color: #e5e7eb;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+}
+
+/* Language dropdown menu (desktop) */
+.lang-menu {
+  background-color: #ffffff !important;
+  color: #0f172a !important; /* slate-900 */
+  border: 1px solid rgba(226,232,240,0.9) !important; /* slate-200 */
+  box-shadow: 0 10px 20px rgba(2,6,23,0.12), 0 4px 8px rgba(2,6,23,0.06);
+}
+.lang-menu button { color: #0f172a; }
+.lang-menu button:hover { background-color: #f8fafc; }
+body.dark-theme .lang-menu {
+  background-color: #1f2937 !important; /* gray-800 */
+  color: #e5e7eb !important; /* gray-200 */
+  border-color: #374151 !important; /* gray-700 */
+}
+body.dark-theme .lang-menu button { color: #e5e7eb; }
+body.dark-theme .lang-menu button:hover { background-color: #374151; }
+
+/* Hero gradient surface */
+.hero-gradient {
+  background-image: radial-gradient(1200px 600px at 20% 10%, rgba(59, 130, 246, 0.08), transparent),
+    linear-gradient(180deg, #ffffff 0%, #f0f7ff 60%, #e8f1ff 100%);
+}
+body.dark-theme .hero-gradient {
+  background-image: radial-gradient(1200px 600px at 20% 10%, rgba(59, 130, 246, 0.12), transparent),
+    linear-gradient(180deg, #0b1220 0%, #0f172a 50%, #111827 100%);
+}
+
+/* Courses page hero image with overlay */
+.courses-hero {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.courses-hero-overlay {
+  background: rgba(255, 255, 255, 0.85);
+}
+body.dark-theme .courses-hero-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Footer surface and divider */
+.footer-surface {
+  background-image: linear-gradient(180deg, #f4f7ff 0%, #f7f9ff 60%, #eef2ff 100%);
+  color: #0f172a;
+}
+body.dark-theme .footer-surface {
+  background-image: linear-gradient(180deg, #0b1220 0%, #0f172a 60%, #111827 100%);
+  color: #e5e7eb;
+}
+.footer-divider {
+  border-color: rgba(148, 163, 184, 0.6);
+}
+body.dark-theme .footer-divider {
+  border-color: rgba(75, 85, 99, 0.6);
+}
+
+/* AfroLMS hero visuals: bright in light, moody in dark */
+.afro-hero-image { filter: none; }
+body.dark-theme .afro-hero-image { filter: grayscale(0.15) contrast(1.05); }
+
+.afro-hero-overlay { background: rgba(255, 255, 255, 0.18); }
+body.dark-theme .afro-hero-overlay { background: rgba(0, 0, 0, 0.55); }
+
+.afro-hero-fade { background: linear-gradient(to top, rgba(255,255,255,0.35), transparent); }
+body.dark-theme .afro-hero-fade { background: linear-gradient(to top, rgba(0,0,0,0.4), transparent); }
+
+/* Media card (Reports & Insights) overlay + caption bubble */
+.media-card-overlay {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.08), rgba(255,255,255,0.18));
+}
+body.dark-theme .media-card-overlay {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.32), rgba(0,0,0,0.58));
+}
+/* Dark mode: adjust the floating caption bubble colors */
+body.dark-theme .media-card-overlay + .grid > .rounded-2xl {
+  background-color: rgba(17,24,39,0.82) !important; /* gray-900/82 */
+  border-color: rgba(148,163,184,0.35) !important; /* slate-300/35 */
+  color: #e5e7eb !important; /* text */
+}
+body.dark-theme .media-card-overlay + .grid > .rounded-2xl p.text-sm {
+  color: #cbd5e1 !important; /* slate-300 */
+}
+body.dark-theme .media-card-overlay + .grid > .rounded-2xl p.text-lg {
+  color: #f9fafb !important; /* gray-50 */
+}
+
+/* Metric cards (AfroLMS stats) */
+.metric-card {
+  position: relative;
+  border-radius: 1rem; /* ~rounded-2xl */
+  padding: 1.5rem; /* p-6 */
+  text-align: center;
+  border: 1px solid #e0e7ff; /* indigo-100 */
+  background: linear-gradient(135deg, #eef2ff, #eff6ff); /* indigo-50 -> blue-50 */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+}
+.metric-number { font-weight: 800; font-size: 1.875rem; line-height: 2.25rem; color: #4338ca; /* indigo-700 */ }
+.metric-label { margin-top: 0.25rem; text-transform: uppercase; letter-spacing: .08em; font-size: .75rem; color: rgba(30,58,138,0.7); /* indigo-900/70 */ }
+
+/* Accents: add subtle radial tint */
+.metric-card.metric-accent-indigo { background-image: radial-gradient(600px 300px at 10% 0%, rgba(99,102,241,0.15), transparent), linear-gradient(135deg, #eef2ff, #eff6ff); }
+.metric-card.metric-accent-blue   { background-image: radial-gradient(600px 300px at 10% 0%, rgba(59,130,246,0.15), transparent), linear-gradient(135deg, #eef2ff, #eff6ff); }
+.metric-card.metric-accent-emerald{ background-image: radial-gradient(600px 300px at 10% 0%, rgba(16,185,129,0.18), transparent), linear-gradient(135deg, #eef2ff, #eff6ff); }
+.metric-card.metric-accent-amber  { background-image: radial-gradient(600px 300px at 10% 0%, rgba(245,158,11,0.18), transparent), linear-gradient(135deg, #eef2ff, #eff6ff); }
+
+/* Dark theme for metric cards */
+body.dark-theme .metric-card {
+  border-color: #374151 !important; /* gray-700 */
+  background: #1f2937 !important; /* gray-800 */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+/* Accent-specific contrast (border + subtle glow + number color) */
+body.dark-theme .metric-card.metric-accent-indigo {
+  background-image: radial-gradient(600px 300px at 10% 0%, rgba(99,102,241,0.16), transparent);
+  border-color: rgba(99,102,241,0.35) !important;
+  box-shadow: 0 0 0 1px rgba(99,102,241,0.28) inset, 0 12px 22px rgba(0,0,0,0.28), 0 0 24px -6px rgba(99,102,241,0.22);
+}
+body.dark-theme .metric-card.metric-accent-blue {
+  background-image: radial-gradient(600px 300px at 10% 0%, rgba(59,130,246,0.18), transparent);
+  border-color: rgba(59,130,246,0.38) !important;
+  box-shadow: 0 0 0 1px rgba(59,130,246,0.30) inset, 0 12px 22px rgba(0,0,0,0.28), 0 0 24px -6px rgba(59,130,246,0.22);
+}
+body.dark-theme .metric-card.metric-accent-emerald {
+  background-image: radial-gradient(600px 300px at 10% 0%, rgba(16,185,129,0.20), transparent);
+  border-color: rgba(16,185,129,0.38) !important;
+  box-shadow: 0 0 0 1px rgba(16,185,129,0.30) inset, 0 12px 22px rgba(0,0,0,0.28), 0 0 24px -6px rgba(16,185,129,0.22);
+}
+body.dark-theme .metric-card.metric-accent-amber {
+  background-image: radial-gradient(600px 300px at 10% 0%, rgba(245,158,11,0.22), transparent);
+  border-color: rgba(245,158,11,0.42) !important;
+  box-shadow: 0 0 0 1px rgba(245,158,11,0.32) inset, 0 12px 22px rgba(0,0,0,0.28), 0 0 24px -6px rgba(245,158,11,0.22);
+}
+/* Number/label contrast per accent */
+body.dark-theme .metric-card.metric-accent-indigo .metric-number { color: #c7d2fe !important; }
+body.dark-theme .metric-card.metric-accent-blue   .metric-number { color: #bfdbfe !important; }
+body.dark-theme .metric-card.metric-accent-emerald .metric-number { color: #a7f3d0 !important; }
+body.dark-theme .metric-card.metric-accent-amber  .metric-number { color: #fde68a !important; }
+body.dark-theme .metric-label { color: rgba(226,232,240,0.75) !important; }
+
+/* Sector cards (AfroLMS sectors timeline) */
+.sector-card {
+  border-radius: 1.5rem; /* rounded-3xl */
+  padding: 1.5rem; /* py-6 px-6 */
+  padding-left: 1.5rem; padding-right: 1.5rem;
+  background-color: rgba(255,255,255,0.95);
+  backdrop-filter: blur(4px);
+  border: 1px solid #f3f4f6; /* gray-100 */
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.05);
+  transition: box-shadow .2s ease;
+}
+.sector-card:hover { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2), 0 10px 10px -5px rgba(0,0,0,0.12); }
+body.dark-theme .sector-card {
+  background-color: #111827 !important; /* gray-900 */
+  border-color: #334155 !important; /* slate-700 */
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.38), 0 10px 10px -5px rgba(0,0,0,0.28) !important;
+  background-image: radial-gradient(800px 400px at 10% 0%, rgba(99,102,241,0.10), transparent);
+  outline: 1px solid rgba(148,163,184,0.18);
+}

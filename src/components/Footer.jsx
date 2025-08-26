@@ -8,7 +8,7 @@ export default function Footer({ t }) {
   };
 
   return (
-    <footer className="mt-24 bg-gradient-to-b from-[#f4f7ff] via-[#f7f9ff] to-[#eef2ff] text-[#0f172a]">
+    <footer className="mt-24 footer-surface">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
@@ -57,7 +57,7 @@ export default function Footer({ t }) {
         </div>
       </div>
 
-      <div className="border-t border-slate-300/60">
+      <div className="border-t footer-divider">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-600">
           <span>© {new Date().getFullYear()} DaraCorp. All rights reserved.</span>
           <span>

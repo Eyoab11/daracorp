@@ -29,17 +29,16 @@ export default function Courses() {
   });
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       {/* Hero */}
       <section
-    className="relative"
+        className="relative courses-hero"
         style={{
-          backgroundImage: `linear-gradient(to bottom right, rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url(${CourseImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundImage: `url(${CourseImage})`,
         }}
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24 text-center">
+        <div className="absolute inset-0 courses-hero-overlay" />
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24 text-center">
           <motion.h1 initial={{opacity:0,y:6}} animate={{opacity:1,y:0}} transition={{duration:0.4}} className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900">Explore DaraCorp Courses</motion.h1>
           <motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.1,duration:0.4}} className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Directive‑mapped learning built for Ethiopian organizations—short videos, role‑plays, and assessments.</motion.p>
         </div>

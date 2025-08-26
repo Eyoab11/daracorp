@@ -162,7 +162,7 @@ function Shell() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 font-sans">
+    <div className="min-h-screen font-sans">
   <Navbar lang={lang} t={t} onScrollTo={onScrollTo} setLang={setLang} />
 
       <AnimatePresence mode="wait" initial={false}>
