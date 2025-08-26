@@ -4,7 +4,7 @@ import BottomCTA from '../shared/BottomCTA';
 import AfrolmsHero from '../assets/afrolms.png';
 import WorldMap from '../assets/world-map.svg';
 
-export default function AfroLMS() {
+export default function AfroLMS({ t, lang }) {
   const Section = ({ id, title, subtitle, children, bg = 'bg-white' }) => (
     <section id={id} className={`${bg} py-16 lg:py-24`}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -52,9 +52,9 @@ export default function AfroLMS() {
             transition={{ duration: 0.45 }}
             className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900"
           >
-            <span>Afro</span>
-            <span className="mx-2 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">LMS</span>
-            <span> — the platform behind DaraCorp</span>
+            <span>{t?.('afrolms.hero.titleAfro') ?? 'Afro'}</span>
+            <span className="mx-2 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">{t?.('afrolms.hero.titleLMS') ?? 'LMS'}</span>
+            <span>{t?.('afrolms.hero.titleSuffix') ?? ' — the platform behind DaraCorp'}</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
@@ -63,18 +63,17 @@ export default function AfroLMS() {
             transition={{ delay: 0.1, duration: 0.45 }}
             className="mt-6 text-base md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
           >
-            A modern learning management system built for African enterprises. Support blended learning,
-            SCORM/xAPI, quizzes, certificates, multilingual delivery, SSO, and detailed analytics.
+            {t?.('afrolms.hero.body') ?? 'A modern learning management system built for African enterprises. Support blended learning, SCORM/xAPI, quizzes, certificates, multilingual delivery, SSO, and detailed analytics.'}
           </motion.p>
           <div className="mt-8 flex flex-wrap gap-4 justify-center">
-            <a href="#contact" className="rounded-full bg-blue-600 text-white px-6 md:px-8 py-3 md:py-4 text-base font-semibold shadow-sm hover:bg-blue-700">Request demo</a>
-            <a href="https://afrolms.com/" target="_blank" rel="noreferrer" className="rounded-full bg-white text-gray-900 px-6 md:px-8 py-3 md:py-4 text-base font-semibold shadow-md border border-gray-200 hover:bg-gray-50">Visit afrolms.com</a>
+            <a href="#contact" className="rounded-full bg-blue-600 text-white px-6 md:px-8 py-3 md:py-4 text-base font-semibold shadow-sm hover:bg-blue-700">{t?.('afrolms.hero.ctaDemo') ?? 'Request demo'}</a>
+            <a href="https://afrolms.com/" target="_blank" rel="noreferrer" className="rounded-full bg-white text-gray-900 px-6 md:px-8 py-3 md:py-4 text-base font-semibold shadow-md border border-gray-200 hover:bg-gray-50">{t?.('afrolms.hero.ctaVisit') ?? 'Visit afrolms.com'}</a>
           </div>
         </div>
       </section>
 
       {/* Core features – mix cards with media and a stats row to avoid monotony */}
-      <Section title="Everything you need for training at scale" subtitle="Built‑in authoring, powerful delivery, and deep visibility — all in a sleek, simple interface.">
+      <Section title={t?.('afrolms.features.title') ?? 'Everything you need for training at scale'} subtitle={t?.('afrolms.features.subtitle') ?? 'Built‑in authoring, powerful delivery, and deep visibility — all in a sleek, simple interface.'}>
         <div className="grid gap-6 lg:gap-8 grid-cols-1 lg:grid-cols-3 items-stretch">
           {/* Big media preview */}
           <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.45 }} className="lg:col-span-1 rounded-3xl overflow-hidden shadow-lg border border-gray-100">
@@ -89,24 +88,24 @@ export default function AfroLMS() {
               <div className="absolute inset-0 media-card-overlay" />
               <div className="absolute inset-0 grid place-items-center">
                 <div className="rounded-2xl bg-white/80 backdrop-blur px-6 py-4 shadow-sm border border-white/70">
-                  <p className="text-sm text-gray-600">Dashboard preview</p>
-                  <p className="text-lg font-semibold text-gray-900">Reports & Insights</p>
+                  <p className="text-sm text-gray-600">{t?.('afrolms.features.mediaBadgeTop') ?? 'Dashboard preview'}</p>
+                  <p className="text-lg font-semibold text-gray-900">{t?.('afrolms.features.mediaBadgeBottom') ?? 'Reports & Insights'}</p>
                 </div>
               </div>
             </div>
             <div className="p-6">
-              <p className="text-gray-600">Visualize completions, exceptions, and trends. Export evidence for audits in one click.</p>
+              <p className="text-gray-600">{t?.('afrolms.features.mediaText') ?? 'Visualize completions, exceptions, and trends. Export evidence for audits in one click.'}</p>
             </div>
           </motion.div>
 
           {/* Feature list */}
           <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {[
+            {(t?.('afrolms.features.items') ?? [
               { t: 'SCORM & xAPI', d: 'Upload standards‑compliant packages and track attempts, scores, and completion.' },
               { t: 'Assessments', d: 'Question banks, randomized quizzes, retake limits, pass scores, and analytics.' },
               { t: 'Certificates', d: 'Auto‑issued certificates with expiries, renewal windows, and reminders.' },
               { t: 'User management', d: 'Bulk enrollments, groups, RBAC, and full audit logs.' },
-            ].map((f, i) => (
+            ]).map((f, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.35 }} className="rounded-3xl bg-white shadow-lg px-6 py-6 md:px-8 md:py-8 border border-gray-100">
                 <h3 className="text-2xl font-extrabold text-gray-900">{f.t}</h3>
                 <p className="mt-3 text-gray-600 leading-relaxed">{f.d}</p>
@@ -117,12 +116,16 @@ export default function AfroLMS() {
 
         {/* Stats row */}
         <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { n: '99.9%', l: 'uptime', accent: 'indigo' },
-            { n: '1M+', l: 'learners delivered', accent: 'blue' },
-            { n: '200+', l: 'organizations', accent: 'emerald' },
-            { n: '24/7', l: 'support', accent: 'amber' },
-          ].map(({ n, l, accent }, i) => (
+          {(() => {
+            const stats = t?.('afrolms.features.stats') ?? { uptime: 'uptime', learners: 'learners delivered', orgs: 'organizations', support: 'support' };
+            const rows = [
+              { n: '99.9%', l: stats.uptime, accent: 'indigo' },
+              { n: '1M+', l: stats.learners, accent: 'blue' },
+              { n: '200+', l: stats.orgs, accent: 'emerald' },
+              { n: '24/7', l: stats.support, accent: 'amber' },
+            ];
+            return rows;
+          })().map(({ n, l, accent }, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 8 }}
@@ -139,21 +142,21 @@ export default function AfroLMS() {
       </Section>
 
       {/* Experience */}
-      <Section bg="bg-gray-50" title="A simple experience users love" subtitle="Fast search, clean course pages, mobile‑friendly, and localized delivery.">
+      <Section bg="bg-gray-50" title={t?.('afrolms.experience.title') ?? 'A simple experience users love'} subtitle={t?.('afrolms.experience.subtitle') ?? 'Fast search, clean course pages, mobile‑friendly, and localized delivery.'}>
         <div className="grid gap-6 lg:gap-8 grid-cols-1 md:grid-cols-2">
           <div className="rounded-3xl bg-white shadow-lg p-8 border border-gray-100">
-            <h3 className="text-xl font-extrabold text-gray-900">Mobile & offline ready</h3>
-            <p className="mt-3 text-gray-600">Responsive UI with support for low‑bandwidth environments and resumable sessions.</p>
+            <h3 className="text-xl font-extrabold text-gray-900">{t?.('afrolms.experience.mobileTitle') ?? 'Mobile & offline ready'}</h3>
+            <p className="mt-3 text-gray-600">{t?.('afrolms.experience.mobileDesc') ?? 'Responsive UI with support for low‑bandwidth environments and resumable sessions.'}</p>
           </div>
           <div className="rounded-3xl bg-white shadow-lg p-8 border border-gray-100">
-            <h3 className="text-xl font-extrabold text-gray-900">Localization & accessibility</h3>
-            <p className="mt-3 text-gray-600">Deliver content in multiple languages with accessible components and captions.</p>
+            <h3 className="text-xl font-extrabold text-gray-900">{t?.('afrolms.experience.l10nTitle') ?? 'Localization & accessibility'}</h3>
+            <p className="mt-3 text-gray-600">{t?.('afrolms.experience.l10nDesc') ?? 'Deliver content in multiple languages with accessible components and captions.'}</p>
           </div>
         </div>
       </Section>
 
       {/* Solutions – staggered timeline with smooth progressive line */}
-      <Section title="Solutions for every sector" subtitle="Government • University • NGO • Private">
+      <Section title={t?.('afrolms.solutions.title') ?? 'Solutions for every sector'} subtitle={t?.('afrolms.solutions.subtitle') ?? 'Government • University • NGO • Private'}>
         <div className="relative mx-auto max-w-5xl">
           {/* Base center line */}
           <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-indigo-200 via-blue-200 to-transparent" />
@@ -168,7 +171,8 @@ export default function AfroLMS() {
           />
 
           {(() => {
-            const items = [
+            const obj = t?.('afrolms.solutions.items');
+            const items = obj ? Object.values(obj) : [
               { t: 'Government', d: 'Public procurement integrity, information security, and training at population scale.' },
               { t: 'University', d: 'Semester delivery, assessments, and analytics for faculty and students.' },
               { t: 'NGO', d: 'Safeguarding, donor compliance, and distributed field team enablement.' },
@@ -219,13 +223,13 @@ export default function AfroLMS() {
       </Section>
 
       {/* Security – compact feature row with icons-like badges to vary rhythm */}
-      <Section bg="bg-gray-50" title="Enterprise‑grade security" subtitle="Role‑based access control, encrypted transport, frequent backups, and audit logs.">
+      <Section bg="bg-gray-50" title={t?.('afrolms.security.title') ?? 'Enterprise‑grade security'} subtitle={t?.('afrolms.security.subtitle') ?? 'Role‑based access control, encrypted transport, frequent backups, and audit logs.'}>
         <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
-          {[
+          {(t?.('afrolms.security.items') ?? [
             { t: 'RBAC', d: 'Fine‑grained permissions for admins, instructors, managers, and learners.' },
             { t: 'Data protection', d: 'TLS in transit, encrypted backups, and data retention controls.' },
             { t: 'Audit & compliance', d: 'Comprehensive logs, exception reporting, and exportable evidence.' },
-          ].map((f, i) => (
+          ]).map((f, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.35 }} className="flex items-start gap-4 rounded-2xl bg-white p-6 border border-gray-100 shadow-sm">
               <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white font-bold">{i+1}</span>
               <div>

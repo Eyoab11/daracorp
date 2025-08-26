@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import CourseCard from '../shared/CourseCard';
 import CourseImage from '../assets/daracorp_courses.png'
 
-export default function Courses() {
+export default function Courses({ lang, t }) {
   // Sample UI-only data
   const allCourses = useMemo(() => ([
     { id: 'aml-found', title: 'AML/KYC Foundations', desc: 'Core obligations, customer due diligence, and risk-based approach for staff.', category: 'Compliance', duration: 75, modules: 8, level: 'Beginner' },
@@ -39,8 +39,8 @@ export default function Courses() {
       >
         <div className="absolute inset-0 courses-hero-overlay" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24 text-center">
-          <motion.h1 initial={{opacity:0,y:6}} animate={{opacity:1,y:0}} transition={{duration:0.4}} className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900">Explore DaraCorp Courses</motion.h1>
-          <motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.1,duration:0.4}} className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Directive‑mapped learning built for Ethiopian organizations—short videos, role‑plays, and assessments.</motion.p>
+          <motion.h1 initial={{opacity:0,y:6}} animate={{opacity:1,y:0}} transition={{duration:0.4}} className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900">{t?.('courses.heroTitle') || 'Explore DaraCorp Courses'}</motion.h1>
+          <motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.1,duration:0.4}} className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">{t?.('courses.heroBody') || 'Directive‑mapped learning built for Ethiopian organizations—short videos, role‑plays, and assessments.'}</motion.p>
         </div>
       </section>
 
@@ -48,14 +48,18 @@ export default function Courses() {
       <section className="border-y border-gray-100 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
           <div className="grid md:grid-cols-[1fr_auto_auto_auto] gap-3">
-            <input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder="Search courses" className="w-full rounded-xl border border-gray-300 px-4 py-3 shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            <input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder={t?.('courses.searchPlaceholder') || 'Search courses'} className="w-full rounded-xl border border-gray-300 px-4 py-3 shadow-sm focus:ring-blue-500 focus:border-blue-500" />
             <select value={category} onChange={(e)=>setCategory(e.target.value)} className="rounded-xl border border-gray-300 px-3 py-3 shadow-sm focus:ring-blue-500 focus:border-blue-500">
-              {['All','Compliance','Conduct','Privacy','Security','HSE','People'].map(op => <option key={op} value={op}>{op}</option>)}
+              {['All','Compliance','Conduct','Privacy','Security','HSE','People'].map(op => (
+                <option key={op} value={op}>{op === 'All' ? (t?.('courses.all') || 'All') : (t?.(`courses.categories.${op}`) || op)}</option>
+              ))}
             </select>
             <select value={level} onChange={(e)=>setLevel(e.target.value)} className="rounded-xl border border-gray-300 px-3 py-3 shadow-sm focus:ring-blue-500 focus:border-blue-500">
-              {['All','Beginner','Intermediate','Advanced'].map(op => <option key={op} value={op}>{op}</option>)}
+              {['All','Beginner','Intermediate','Advanced'].map(op => (
+                <option key={op} value={op}>{op === 'All' ? (t?.('courses.all') || 'All') : (t?.(`courses.levels.${op}`) || op)}</option>
+              ))}
             </select>
-            <button className="rounded-xl bg-blue-600 text-white px-5 py-3 font-semibold shadow-sm hover:bg-blue-700">Search</button>
+            <button className="rounded-xl bg-blue-600 text-white px-5 py-3 font-semibold shadow-sm hover:bg-blue-700">{t?.('courses.searchBtn') || 'Search'}</button>
           </div>
         </div>
       </section>
@@ -65,7 +69,7 @@ export default function Courses() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 lg:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filtered.slice(0,8).map((c) => (
-              <CourseCard key={c.id} course={c} />
+              <CourseCard key={c.id} course={c} t={t} />
             ))}
           </div>
         </div>

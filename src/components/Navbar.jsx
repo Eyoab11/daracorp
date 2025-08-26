@@ -96,19 +96,18 @@ export default function Navbar({ lang, t, onScrollTo, setLang }) {
             type="button"
             onClick={toggleTheme}
             title="Toggle theme"
-            className="inline-flex items-center justify-center rounded-full p-2 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-200 dark:hover:bg-gray-800"
+            className="inline-flex items-center justify-center rounded-full p-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:hover:bg-gray-800"
           >
             <span className="sr-only">Toggle theme</span>
             {theme === 'dark' ? (
-              // Sun icon when in dark mode
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5">
-                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" />
-                <path fillRule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75Zm0 15a.75.75 0 0 1 .75.75V19.5a.75.75 0 0 1-1.5 0V18a.75.75 0 0 1 .75-.75Zm9-6.75a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5H20.25a.75.75 0 0 1 .75.75Zm-15 0a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h1.5a.75.75 0 0 1 .75.75Zm10.78 6.53a.75.75 0 0 1 0 1.06l-1.06 1.06a.75.75 0 1 1-1.06-1.06l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.54-9.54a.75.75 0 0 1 0 1.06L5.17 10.12a.75.75 0 1 1-1.06-1.06L5.18 7.97a.75.75 0 0 1 1.06 0Zm9.54 0a.75.75 0 0 1-1.06 0L14.66 6.91a.75.75 0 1 1 1.06-1.06l1.06 1.06a.75.75 0 0 1 0 1.06Zm-9.54 9.54a.75.75 0 0 1-1.06 0L4.06 16.45a.75.75 0 1 1 1.06-1.06l1.06 1.06a.75.75 0 0 1 0 1.06Z" clipRule="evenodd" />
+              // Sun (outline) shown in dark mode: make it white
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-6 w-6 md:h-7 md:w-7 text-white">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M12 3v2.25m0 13.5V21m9-9h-2.25M5.25 12H3m15.364 6.364-1.59-1.59M7.227 7.227 5.636 5.636m12.728 0-1.59 1.59M7.227 16.773l-1.59 1.59M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0z" />
               </svg>
             ) : (
-              // Moon icon when in light mode
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5">
-                <path d="M21.752 15.002A9.718 9.718 0 0 1 12.74 22.5c-5.385 0-9.75-4.365-9.75-9.75 0-4.356 2.799-8.053 6.67-9.36a.75.75 0 0 1 .911 1.042A8.25 8.25 0 0 0 20.25 15.84a.75.75 0 0 1 1.502-.838Z" />
+              // Moon (outline) shown in light mode: make it black
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-6 w-6 md:h-7 md:w-7 text-black">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M21.752 15.002A9.718 9.718 0 0 1 12.74 22.5 9.75 9.75 0 1 1 11.25 2.25c.153 0 .305.004.455.012A9.714 9.714 0 0 0 21.752 15z" />
               </svg>
             )}
           </button>
@@ -147,7 +146,7 @@ export default function Navbar({ lang, t, onScrollTo, setLang }) {
             to="/demo"
             className="rounded-full bg-blue-600 text-white px-4 sm:px-5 py-2 text-sm font-semibold shadow-md hover:bg-blue-700 transition-colors"
           >
-            Get a demo
+            {t('nav.demo') || 'Get a demo'}
           </Link>
         </div>
 
@@ -158,17 +157,16 @@ export default function Navbar({ lang, t, onScrollTo, setLang }) {
             type="button"
             onClick={toggleTheme}
             title="Toggle theme"
-            className="inline-flex items-center justify-center rounded-lg p-2 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-200 dark:hover:bg-gray-800"
+            className="inline-flex items-center justify-center rounded-lg p-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:hover:bg-gray-800"
           >
             <span className="sr-only">Toggle theme</span>
             {theme === 'dark' ? (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" />
-                <path fillRule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75Zm0 15a.75.75 0 0 1 .75.75V19.5a.75.75 0 0 1-1.5 0V18a.75.75 0 0 1 .75-.75Zm9-6.75a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5H20.25a.75.75 0 0 1 .75.75Zm-15 0a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h1.5a.75.75 0 0 1 .75.75Zm10.78 6.53a.75.75 0 0 1 0 1.06l-1.06 1.06a.75.75 0 1 1-1.06-1.06l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.54-9.54a.75.75 0 0 1 0 1.06L5.17 10.12a.75.75 0 1 1-1.06-1.06L5.18 7.97a.75.75 0 0 1 1.06 0Zm9.54 0a.75.75 0 0 1-1.06 0L14.66 6.91a.75.75 0 1 1 1.06-1.06l1.06 1.06a.75.75 0 0 1 0 1.06Zm-9.54 9.54a.75.75 0 0 1-1.06 0L4.06 16.45a.75.75 0 1 1 1.06-1.06l1.06 1.06a.75.75 0 0 1 0 1.06Z" clipRule="evenodd" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-7 w-7 text-white">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M12 3v2.25m0 13.5V21m9-9h-2.25M5.25 12H3m15.364 6.364-1.59-1.59M7.227 7.227 5.636 5.636m12.728 0-1.59 1.59M7.227 16.773l-1.59 1.59M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0z" />
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-                <path d="M21.752 15.002A9.718 9.718 0 0 1 12.74 22.5c-5.385 0-9.75-4.365-9.75-9.75 0-4.356 2.799-8.053 6.67-9.36a.75.75 0 0 1 .911 1.042A8.25 8.25 0 0 0 20.25 15.84a.75.75 0 0 1 1.502-.838Z" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-7 w-7 text-black">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M21.752 15.002A9.718 9.718 0 0 1 12.74 22.5 9.75 9.75 0 1 1 11.25 2.25c.153 0 .305.004.455.012A9.714 9.714 0 0 0 21.752 15z" />
               </svg>
             )}
           </button>
@@ -261,7 +259,7 @@ export default function Navbar({ lang, t, onScrollTo, setLang }) {
                   onClick={() => setMobileOpen(false)}
                   className="inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-700"
                 >
-                  Get a demo
+                  {t('nav.demo') || 'Get a demo'}
                 </Link>
               </div>
             </div>

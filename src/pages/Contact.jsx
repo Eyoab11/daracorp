@@ -1,11 +1,15 @@
 import React from 'react';
 
 export default function Contact() {
+  // Read language from persisted setting (set by App)
+  let lang = 'en';
+  try { lang = localStorage.getItem('dc_lang') || 'en'; } catch {}
+  const tr = (en, am) => (lang === 'am' ? am : en);
   return (
     <main className="bg-white">
       {/* Title */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 text-center">Contact Us</h1>
+        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 text-center">{tr('Contact Us', 'አግኙን')}</h1>
       </section>
 
       {/* Map + Form */}
@@ -29,28 +33,28 @@ export default function Contact() {
             <form className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">First name</label>
+                  <label className="block text-sm font-medium text-gray-700">{tr('First name', 'ስም')}</label>
                   <input type="text" name="firstName" className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Last name</label>
+                  <label className="block text-sm font-medium text-gray-700">{tr('Last name', 'የአባት ስም')}</label>
                   <input type="text" name="lastName" className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Email</label>
+                <label className="block text-sm font-medium text-gray-700">{tr('Email', 'ኢሜይል')}</label>
                 <input type="email" name="email" className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Subject</label>
+                <label className="block text-sm font-medium text-gray-700">{tr('Subject', 'ርዕስ')}</label>
                 <input type="text" name="subject" className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Message</label>
+                <label className="block text-sm font-medium text-gray-700">{tr('Message', 'መልዕክት')}</label>
                 <textarea name="message" rows={5} className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
               <div>
-                <button type="submit" className="inline-flex items-center justify-center rounded-full bg-blue-600 text-white px-6 py-3 font-semibold shadow-sm hover:bg-blue-700">Send message</button>
+                <button type="submit" className="inline-flex items-center justify-center rounded-full bg-blue-600 text-white px-6 py-3 font-semibold shadow-sm hover:bg-blue-700">{tr('Send message', 'መልዕክት ላክ')}</button>
               </div>
             </form>
           </div>

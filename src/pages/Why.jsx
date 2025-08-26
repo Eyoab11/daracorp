@@ -45,6 +45,41 @@ export default function Why({ lang = 'en', ui, t }) {
     return () => clearInterval(id);
   }, [testimonials.length]);
 
+  // Localized comparison content defined here (per request: no App.jsx changes)
+  const compare = lang === 'am'
+    ? {
+        typicalTitle: 'መደበኛ ስልጠና',
+        typicalList: [
+          'ከመመሪያ ጋር ያልተያያዘ አጠቃላይ ይዘት',
+          'ረጅም እና የሚያስቀር ትምህርቶች',
+          'ዝቅተኛ መውሰድ፣ ዝቅተኛ ማስታወስ',
+          'በኦዲት ጊዜ የተዋበ መዝገቦች',
+        ],
+        daraTitle: 'ዳራኮርፕ',
+        daraList: [
+          'ከመመሪያ ጋር የተያያዘ እና የተጣመረ',
+          'አጭር፣ ሲኔማዊ ማይክሮ-ትምህርቶች',
+          'ከፍተኛ መውሰድ እና ጨረስ',
+          'ለማስረጃ ዝግጁ መዝገቦች እና ምስክር ወረቀቶች',
+        ],
+      }
+    : {
+        typicalTitle: 'Typical training',
+        typicalList: [
+          'Generic content not mapped to directives',
+          'Long and boring lessons',
+          'Low adoption, low recall',
+          'Messy records during audits',
+        ],
+        daraTitle: 'DaraCorp',
+        daraList: [
+          'Directive‑mapped and localized',
+          'Short, cinematic micro‑lessons',
+          'High adoption and completion',
+          'Evidence‑ready records & certificates',
+        ],
+      };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero – image only (half screen), like AfroLMS */}
@@ -80,17 +115,17 @@ export default function Why({ lang = 'en', ui, t }) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 md:grid-cols-2 items-stretch">
             <motion.div initial={{opacity:0, y:14}} whileInView={{opacity:1, y:0}} viewport={{once:true}} transition={{duration:.5}} className="rounded-3xl bg-white p-8 border border-gray-100 shadow-lg">
-              <h3 className="text-2xl font-extrabold text-gray-900">Typical training</h3>
+              <h3 className="text-2xl font-extrabold text-gray-900">{compare.typicalTitle}</h3>
               <ul className="mt-4 space-y-3 text-gray-600">
-                {['Generic content not mapped to directives','Long and boring lessons','Low adoption, low recall','Messy records during audits'].map((s,i)=>(
+                {compare.typicalList.map((s,i)=>(
                   <li key={i} className="flex items-start gap-3"><span className="text-red-500 mt-1">✕</span>{s}</li>
                 ))}
               </ul>
             </motion.div>
             <motion.div initial={{opacity:0, y:14}} whileInView={{opacity:1, y:0}} viewport={{once:true}} transition={{duration:.5, delay:.1}} className="rounded-3xl bg-gradient-to-br from-indigo-600 to-blue-600 p-8 shadow-xl text-white">
-              <h3 className="text-2xl font-extrabold">DaraCorp</h3>
+              <h3 className="text-2xl font-extrabold">{compare.daraTitle}</h3>
               <ul className="mt-4 space-y-3">
-                {['Directive‑mapped and localized','Short, cinematic micro‑lessons','High adoption and completion','Evidence‑ready records & certificates'].map((s,i)=>(
+                {compare.daraList.map((s,i)=>(
                   <li key={i} className="flex items-start gap-3"><span className="mt-1">✔</span>{s}</li>
                 ))}
               </ul>

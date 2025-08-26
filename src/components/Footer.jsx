@@ -16,21 +16,21 @@ export default function Footer({ t }) {
       <div className="flex items-center gap-3">
               <Logo small />
               <div>
-        <div className="text-lg font-extrabold tracking-tight">DaraCorp</div>
+        <div className="text-lg font-extrabold tracking-tight">{t('brand') || 'DaraCorp'}</div>
         <div className="text-sm/6 text-slate-600">{t('subtitle')}</div>
               </div>
             </div>
       <p className="mt-4 text-slate-600 leading-relaxed">
-              Modern compliance training tailored for Ethiopian organizations.
+              {t('footer.tagline')}
             </p>
           </div>
 
           {/* Explore */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-600">Explore</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-600">{t('footer.explore') || 'Explore'}</h4>
             <ul className="mt-4 space-y-3">
               <li><button onClick={() => scrollTo('courses')} className="hover:text-blue-700 transition-colors">{t('nav.courses') || 'Courses'}</button></li>
-              <li><button onClick={() => scrollTo('platform')} className="hover:text-blue-700 transition-colors">AfroLMS</button></li>
+              <li><button onClick={() => scrollTo('platform')} className="hover:text-blue-700 transition-colors">{t('nav.platform') || 'AfroLMS'}</button></li>
               <li><button onClick={() => scrollTo('why')} className="hover:text-blue-700 transition-colors">{t('nav.why') || 'Why DaraCorp'}</button></li>
               <li><button onClick={() => scrollTo('contact')} className="hover:text-blue-700 transition-colors">{t('nav.contact') || 'Contact'}</button></li>
             </ul>
@@ -38,7 +38,7 @@ export default function Footer({ t }) {
 
           {/* Legal */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-600">Legal</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-600">{t('footer.legal') || 'Legal'}</h4>
             <ul className="mt-4 space-y-3">
               <li><a href="#" className="hover:text-blue-700 transition-colors">{t('footerLinks.0')}</a></li>
               <li><a href="#" className="hover:text-blue-700 transition-colors">{t('footerLinks.1')}</a></li>
@@ -48,10 +48,10 @@ export default function Footer({ t }) {
 
           {/* CTA */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-600">Get started</h4>
-            <p className="mt-4 text-slate-600">See DaraCorp in action for your team.</p>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-600">{t('footer.getStarted') || 'Get started'}</h4>
+            <p className="mt-4 text-slate-600">{t('footer.getStartedBody')}</p>
             <button onClick={() => scrollTo('contact')} className="mt-4 inline-flex items-center justify-center rounded-full bg-blue-600 text-white px-6 py-3 font-semibold shadow-sm hover:bg-blue-700">
-              Get a demo
+              {t('cta.primary') || 'Get a demo'}
             </button>
           </div>
         </div>
@@ -59,9 +59,9 @@ export default function Footer({ t }) {
 
       <div className="border-t footer-divider">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-600">
-          <span>© {new Date().getFullYear()} DaraCorp. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} {t('brand') || 'DaraCorp'}. {t('footer.copyright') || 'All rights reserved.'}</span>
           <span>
-            Training delivery is <b className="font-semibold">powered by AfroLMS</b> — enrollment, tracking, and certification.
+            {t('footer.powered')}
           </span>
         </div>
       </div>
