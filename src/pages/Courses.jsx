@@ -20,6 +20,11 @@ export default function Courses({ lang, t }) {
   const [category, setCategory] = useState('All');
   const [level, setLevel] = useState('All');
 
+  // Preview modal state (same video for all courses)
+  const [showPreview, setShowPreview] = useState(false);
+  const openPreview = () => setShowPreview(true);
+  const closePreview = () => setShowPreview(false);
+
   const filtered = allCourses.filter((c) => {
     const q = query.trim().toLowerCase();
     const matchesQ = !q || c.title.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q);
@@ -69,11 +74,58 @@ export default function Courses({ lang, t }) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 lg:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filtered.slice(0,8).map((c) => (
-              <CourseCard key={c.id} course={c} t={t} />
+              <CourseCard key={c.id} course={c} t={t} onPreview={openPreview} />
             ))}
           </div>
         </div>
       </section>
+
+      {/* Preview Modal */}
+      {showPreview && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          aria-modal="true"
+          role="dialog"
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/60" onClick={closePreview} />
+          {/* Card */}
+          <motion.div
+            initial={{ scale: 0.98, y: 10, opacity: 0 }}
+            animate={{ scale: 1, y: 0, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 180, damping: 18 }}
+            className="relative z-10 w-[92vw] max-w-5xl rounded-2xl bg-white shadow-2xl overflow-hidden"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-4 sm:px-5 py-3 border-b border-gray-100">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900">{t?.('courses.previewTitle') || 'Course Preview'}</h3>
+              <button
+                onClick={closePreview}
+                className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                aria-label={t?.('common.close') || 'Close'}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            {/* 16:9 video */}
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              <iframe
+                className="absolute inset-0 h-full w-full"
+                src="https://www.youtube.com/embed/RsRI0QRjdQc?rel=0"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 }

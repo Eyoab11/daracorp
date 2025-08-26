@@ -10,6 +10,7 @@ import AfroLMS from './pages/AfroLMS';
 import Why from './pages/Why';
 import Contact from './pages/Contact';
 import Demo from './pages/Demo';
+import CourseDetails from './pages/CourseDetails';
 import { trainings as defaultTrainings } from './data/trainings';
 
 export default function App() {
@@ -420,6 +421,7 @@ function Shell() {
           <Route path="/" element={<Home lang={lang} ui={ui} trainings={trainings} t={t} setLang={setLang} />} />
           <Route path="/dashboard" element={<Dashboard trainings={trainings} lang={lang} />} />
           <Route path="/courses" element={<Courses lang={lang} t={t} />} />
+          <Route path="/courses/:id" element={<CourseDetails lang={lang} t={t} />} />
           <Route path="/afrolms" element={<AfroLMS lang={lang} t={t} />} />
           <Route path="/why" element={<Why lang={lang} ui={ui} t={t} />} />
           <Route path="/contact" element={<Contact />} />

@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
-export default function CourseCard({ course, t }) {
+export default function CourseCard({ course, t, onPreview }) {
   const { title, desc, duration, modules, level, category, id } = course;
   const seed = encodeURIComponent(id || title || Math.random().toString(36).slice(2));
   const imageUrl = `https://picsum.photos/seed/${seed}/640/480`;
@@ -40,8 +41,19 @@ export default function CourseCard({ course, t }) {
           <span className="inline-flex items-center gap-1"><svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6a2 2 0 012-2h6a2 2 0 012 2v2h4a2 2 0 012 2v8a2 2 0 01-2 2H8a2 2 0 01-2-2v-2H4a2 2 0 01-2-2V8a2 2 0 012-2h2V6z"/></svg>{modules} {t?.('courses.units.modules') || 'modules'}</span>
         </div>
         <div className="mt-5 flex items-center justify-between">
-          <button className="rounded-full bg-blue-600 text-white px-4 py-2 text-sm font-semibold shadow-sm hover:bg-blue-700">{t?.('courses.buttons.preview') || 'Preview'}</button>
-          <button className="text-blue-700 font-semibold hover:underline">{t?.('courses.buttons.details') || 'Details →'}</button>
+          <button
+            className="rounded-full bg-blue-600 text-white px-4 py-2 text-sm font-semibold shadow-sm hover:bg-blue-700"
+            onClick={(e) => { e.preventDefault(); onPreview?.(); }}
+          >
+            {t?.('courses.buttons.preview') || 'Preview'}
+          </button>
+          <Link
+            to={`/courses/${encodeURIComponent(id)}`}
+            state={{ course }}
+            className="text-blue-700 font-semibold hover:underline"
+          >
+            {t?.('courses.buttons.details') || 'Details →'}
+          </Link>
         </div>
       </div>
     </motion.article>
