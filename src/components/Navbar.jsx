@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 
@@ -53,11 +53,11 @@ export default function Navbar({ lang, t, onScrollTo, setLang }) {
 
         {/* Center nav (md+) */}
         <nav className="hidden md:flex items-center gap-10 text-sm md:text-base font-medium text-gray-700">
-          <Link to="/" className="hover:text-blue-600 transition-colors">{t('nav.home') || 'Home'}</Link>
-          <Link to="/courses" className="hover:text-blue-600 transition-colors">{t('nav.courses') || 'Courses'}</Link>
-          <Link to="/afrolms" className="hover:text-blue-600 transition-colors">AfroLMS</Link>
-          <Link to="/why" className="hover:text-blue-600 transition-colors">{t('nav.why') || 'Why DaraCorp'}</Link>
-          <Link to="/contact" className="hover:text-blue-600 transition-colors">{t('nav.contact') || 'Contact'}</Link>
+          <NavLink to="/" className={({ isActive }) => `transition-colors hover:text-blue-600 ${isActive ? 'text-blue-600 font-semibold' : ''}`}>{t('nav.home') || 'Home'}</NavLink>
+          <NavLink to="/courses" className={({ isActive }) => `transition-colors hover:text-blue-600 ${isActive ? 'text-blue-600 font-semibold' : ''}`}>{t('nav.courses') || 'Courses'}</NavLink>
+          <NavLink to="/afrolms" className={({ isActive }) => `transition-colors hover:text-blue-600 ${isActive ? 'text-blue-600 font-semibold' : ''}`}>AfroLMS</NavLink>
+          <NavLink to="/why" className={({ isActive }) => `transition-colors hover:text-blue-600 ${isActive ? 'text-blue-600 font-semibold' : ''}`}>{t('nav.why') || 'Why DaraCorp'}</NavLink>
+          <NavLink to="/contact" className={({ isActive }) => `transition-colors hover:text-blue-600 ${isActive ? 'text-blue-600 font-semibold' : ''}`}>{t('nav.contact') || 'Contact'}</NavLink>
         </nav>
 
         {/* Right controls (md+) */}
@@ -156,11 +156,11 @@ export default function Navbar({ lang, t, onScrollTo, setLang }) {
 
             <div className="px-4 py-2">
               <div className="grid gap-1 py-2 text-gray-800">
-                <Link to="/" onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2 hover:bg-gray-50">{t('nav.home') || 'Home'}</Link>
-                <Link to="/courses" onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2 hover:bg-gray-50">{t('nav.courses') || 'Courses'}</Link>
-                <Link to="/afrolms" onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2 hover:bg-gray-50">AfroLMS</Link>
-                <Link to="/why" onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2 hover:bg-gray-50">{t('nav.why') || 'Why DaraCorp'}</Link>
-                <Link to="/contact" onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2 hover:bg-gray-50">{t('nav.contact') || 'Contact'}</Link>
+                <NavLink to="/" onClick={() => setMobileOpen(false)} className={({ isActive }) => `rounded-lg px-3 py-2 transition-colors hover:bg-gray-50 ${isActive ? 'text-blue-600 font-semibold' : ''}`}>{t('nav.home') || 'Home'}</NavLink>
+                <NavLink to="/courses" onClick={() => setMobileOpen(false)} className={({ isActive }) => `rounded-lg px-3 py-2 transition-colors hover:bg-gray-50 ${isActive ? 'text-blue-600 font-semibold' : ''}`}>{t('nav.courses') || 'Courses'}</NavLink>
+                <NavLink to="/afrolms" onClick={() => setMobileOpen(false)} className={({ isActive }) => `rounded-lg px-3 py-2 transition-colors hover:bg-gray-50 ${isActive ? 'text-blue-600 font-semibold' : ''}`}>AfroLMS</NavLink>
+                <NavLink to="/why" onClick={() => setMobileOpen(false)} className={({ isActive }) => `rounded-lg px-3 py-2 transition-colors hover:bg-gray-50 ${isActive ? 'text-blue-600 font-semibold' : ''}`}>{t('nav.why') || 'Why DaraCorp'}</NavLink>
+                <NavLink to="/contact" onClick={() => setMobileOpen(false)} className={({ isActive }) => `rounded-lg px-3 py-2 transition-colors hover:bg-gray-50 ${isActive ? 'text-blue-600 font-semibold' : ''}`}>{t('nav.contact') || 'Contact'}</NavLink>
               </div>
 
               <div className="my-2 h-px bg-gray-100" />

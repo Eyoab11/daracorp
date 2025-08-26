@@ -2,7 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 export default function CourseCard({ course }) {
-  const { title, desc, duration, modules, level, category } = course;
+  const { title, desc, duration, modules, level, category, id } = course;
+  const seed = encodeURIComponent(id || title || Math.random().toString(36).slice(2));
+  const imageUrl = `https://picsum.photos/seed/${seed}/640/480`;
+  const fallbackUrl = `https://source.unsplash.com/random/640x480?${encodeURIComponent(category || 'training')}`;
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 12 }}
@@ -13,10 +17,15 @@ export default function CourseCard({ course }) {
       className="group rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-xl transition-all overflow-hidden"
     >
       {/* media */}
-      <div className="relative aspect-[4/3] bg-gradient-to-br from-blue-100 via-indigo-100 to-blue-50">
-        <div className="absolute inset-0 grid place-items-center">
-          <span className="text-5xl">📘</span>
-        </div>
+      <div className="relative aspect-[4/3] bg-gray-100">
+        <img
+          src={imageUrl}
+          alt={`${title} course`}
+          loading="lazy"
+          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = fallbackUrl; }}
+          className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
       </div>
       {/* body */}
       <div className="p-4 sm:p-5">
