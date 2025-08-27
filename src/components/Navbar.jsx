@@ -80,8 +80,8 @@ export default function Navbar({ lang, t, onScrollTo, setLang }) {
           </div>
         </div>
 
-        {/* Center nav (md+) */}
-        <nav className="hidden md:flex items-center gap-10 text-sm md:text-base font-medium">
+        {/* Center nav (lg+) */}
+        <nav className="hidden lg:flex items-center gap-10 text-sm md:text-base font-medium">
           <NavLink to="/" className={({ isActive }) => `nav-link transition-colors ${isActive ? 'nav-link-active font-semibold' : ''}`}>{t('nav.home') || 'Home'}</NavLink>
           <NavLink to="/courses" className={({ isActive }) => `nav-link transition-colors ${isActive ? 'nav-link-active font-semibold' : ''}`}>{t('nav.courses') || 'Courses'}</NavLink>
           <NavLink to="/afrolms" className={({ isActive }) => `nav-link transition-colors ${isActive ? 'nav-link-active font-semibold' : ''}`}>AfroLMS</NavLink>
@@ -89,8 +89,8 @@ export default function Navbar({ lang, t, onScrollTo, setLang }) {
           <NavLink to="/contact" className={({ isActive }) => `nav-link transition-colors ${isActive ? 'nav-link-active font-semibold' : ''}`}>{t('nav.contact') || 'Contact'}</NavLink>
         </nav>
 
-        {/* Right controls (md+) */}
-        <div className="hidden md:flex items-center gap-3 md:gap-4">
+        {/* Right controls (lg+) */}
+        <div className="hidden lg:flex items-center gap-3 md:gap-4">
           {/* Theme toggle */}
           <button
             type="button"
@@ -150,8 +150,8 @@ export default function Navbar({ lang, t, onScrollTo, setLang }) {
           </Link>
         </div>
 
-        {/* Mobile controls (<md) */}
-        <div className="md:hidden flex items-center gap-2">
+        {/* Mobile controls (<lg) */}
+        <div className="lg:hidden flex items-center gap-2">
           {/* Theme toggle (left of hamburger) */}
           <button
             type="button"
@@ -191,7 +191,7 @@ export default function Navbar({ lang, t, onScrollTo, setLang }) {
         initial={false}
         animate={{ opacity: mobileOpen ? 1 : 0, pointerEvents: mobileOpen ? 'auto' : 'none' }}
         transition={{ duration: 0.15 }}
-        className="md:hidden fixed inset-0 z-[60]"
+        className="lg:hidden fixed inset-0 z-[60]"
         aria-hidden={!mobileOpen}
       >
         {/* Backdrop */}
