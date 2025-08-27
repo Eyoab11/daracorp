@@ -3,10 +3,13 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 export default function CourseCard({ course, t, onPreview }) {
-  const { title, desc, duration, modules, level, category, id } = course;
+  const { title, desc, duration, modules, level, category, id, card_desc, image_url } = course;
   const seed = encodeURIComponent(id || title || Math.random().toString(36).slice(2));
-  const imageUrl = `https://picsum.photos/seed/${seed}/640/480`;
+  const placeholder = `https://picsum.photos/seed/${seed}/640/480`;
   const fallbackUrl = `https://source.unsplash.com/random/640x480?${encodeURIComponent(category || 'training')}`;
+  const baseDesc = (card_desc || desc || '').toString();
+  const shortDesc = baseDesc.length > 140 ? baseDesc.slice(0, 137) + '…' : baseDesc;
+  const imageUrl = image_url || placeholder;
 
   return (
     <motion.article
@@ -35,7 +38,7 @@ export default function CourseCard({ course, t, onPreview }) {
           <span className="inline-flex items-center rounded-full bg-gray-50 px-2 py-1 border border-gray-200">{t?.(`courses.levels.${level}`) || level}</span>
         </div>
         <h3 className="mt-3 text-lg font-extrabold text-gray-900 group-hover:text-blue-700 transition-colors">{title}</h3>
-        <p className="mt-2 text-sm text-gray-600 leading-relaxed">{desc}</p>
+        <p className="mt-2 text-sm text-gray-600 leading-relaxed">{shortDesc}</p>
         <div className="mt-4 flex items-center gap-3 text-sm text-gray-700">
           <span className="inline-flex items-center gap-1"><svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm.75 4.75a.75.75 0 00-1.5 0v3.5c0 .2.08.39.22.53l2.5 2.5a.75.75 0 101.06-1.06l-2.28-2.28V6.75z"/></svg>{duration} {t?.('courses.units.min') || 'min'}</span>
           <span className="inline-flex items-center gap-1"><svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6a2 2 0 012-2h6a2 2 0 012 2v2h4a2 2 0 012 2v8a2 2 0 01-2 2H8a2 2 0 01-2-2v-2H4a2 2 0 01-2-2V8a2 2 0 012-2h2V6z"/></svg>{modules} {t?.('courses.units.modules') || 'modules'}</span>
@@ -43,7 +46,7 @@ export default function CourseCard({ course, t, onPreview }) {
         <div className="mt-auto pt-4 flex items-center justify-between">
           <button
             className="rounded-full bg-blue-600 text-white px-4 py-2 text-sm font-semibold shadow-sm hover:bg-blue-700"
-            onClick={(e) => { e.preventDefault(); onPreview?.(); }}
+            onClick={(e) => { e.preventDefault(); onPreview?.(course); }}
           >
             {t?.('courses.buttons.preview') || 'Preview'}
           </button>

@@ -1,12 +1,38 @@
 import React, { useState } from 'react';
+import { supabase } from '../lib/supabaseClient';
 
 export default function Demo({ lang, t }) {
   const [status, setStatus] = useState('idle'); // idle | submitting | success
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    if (status === 'submitting') return;
     setStatus('submitting');
-    setTimeout(() => setStatus('success'), 900);
+
+    const formEl = e.currentTarget;
+    const form = new FormData(formEl);
+    const first_name = (form.get('firstName') || '').toString().trim();
+    const last_name = (form.get('lastName') || '').toString().trim();
+    const email = (form.get('email') || '').toString().trim();
+    const org = (form.get('org') || '').toString().trim();
+    const role = (form.get('role') || '').toString().trim();
+    const size = (form.get('size') || '').toString().trim();
+    const topics = form.getAll('topics').map(v => v.toString());
+    const time = (form.get('time') || '').toString().trim();
+    const phone = (form.get('phone') || '').toString().trim();
+    const msg = (form.get('msg') || '').toString().trim();
+
+    try {
+      const payload = { first_name, last_name, email, org, role, size, topics, time, phone, msg, status: 'got' };
+      const { error } = await supabase.from('demo_leads').insert([payload]);
+      if (error) throw error;
+      setStatus('success');
+      formEl.reset();
+    } catch (err) {
+      console.warn('Failed to submit demo request', err);
+      setStatus('idle');
+      alert('There was an error submitting your request. Please try again.');
+    }
   };
 
   return (

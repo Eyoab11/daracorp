@@ -1,33 +1,89 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import CourseCard from '../shared/CourseCard';
 import CourseImage from '../assets/daracorp_courses.png'
+import { supabase } from '../lib/supabaseClient';
 
 export default function Courses({ lang, t }) {
-  // Sample UI-only data
-  const allCourses = useMemo(() => ([
-    { id: 'aml-found', title: 'AML/KYC Foundations', desc: 'Core obligations, customer due diligence, and risk-based approach for staff.', category: 'Compliance', duration: 75, modules: 8, level: 'Beginner' },
-    { id: 'ethics', title: 'Ethics & Conduct', desc: 'Conflicts, integrity in decision-making, and speaking up.', category: 'Conduct', duration: 60, modules: 6, level: 'Beginner' },
-    { id: 'privacy', title: 'Data Privacy for Staff', desc: 'Personal data handling under Ethiopian directives and global best practice.', category: 'Privacy', duration: 70, modules: 7, level: 'Intermediate' },
-    { id: 'cyber', title: 'Cybersecurity Awareness', desc: 'Threats, phishing, password hygiene, and device safety.', category: 'Security', duration: 55, modules: 5, level: 'Beginner' },
-    { id: 'hse', title: 'HSE Essentials', desc: 'Site safety, incident reporting, and contractor induction.', category: 'HSE', duration: 65, modules: 6, level: 'Intermediate' },
-    { id: 'abac', title: 'Anti‑Bribery & Corruption', desc: 'Gifts, facilitation payments, and third‑party risk.', category: 'Compliance', duration: 80, modules: 8, level: 'Intermediate' },
-    { id: 'fincrime', title: 'Financial Crime for Front Office', desc: 'Screening, red flags, and reporting suspicious activity.', category: 'Compliance', duration: 70, modules: 7, level: 'Advanced' },
-    { id: 'harassment', title: 'Workplace Harassment Prevention', desc: 'Respectful culture, boundaries, and incident handling.', category: 'People', duration: 50, modules: 5, level: 'Beginner' },
-  ]), []);
+  // Using only Supabase data; no hardcoded fallback
+
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    let mounted = true;
+    const run = async () => {
+      setLoading(true);
+      setError('');
+  try {
+        const { data, error: err } = await supabase
+          .from('courses')
+          .select('*')
+          .order('created_at', { ascending: false });
+        
+        if (err) {
+          throw err;
+        }
+        
+        if (!mounted) return;
+        
+        // Map and filter data
+        const mapped = (data || [])
+          .filter(c => c.is_published === true) // Only show published courses
+          .map(c => ({
+            id: c.id,
+            title: c.title,
+            desc: c.description ?? c.desc,
+            category: c.category || 'General',
+            level: c.level || 'Beginner',
+            duration: c.duration || 0,
+            modules: c.modules || 0,
+            image_url: c.image_url,
+            video_url: c.video_url,
+            outcomes: c.outcomes,
+            curriculum: c.curriculum,
+          }));
+        setCourses(mapped);
+      } catch (e) {
+        setError(e.message || 'Failed to load courses');
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+    run();
+    return () => { mounted = false };
+  }, []);
 
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('All');
   const [level, setLevel] = useState('All');
 
-  // Preview modal state (same video for all courses)
-  const [showPreview, setShowPreview] = useState(false);
-  const openPreview = () => setShowPreview(true);
-  const closePreview = () => setShowPreview(false);
+  // Preview modal state uses the selected course's video_url
+  const [previewCourse, setPreviewCourse] = useState(null);
+  const openPreview = (course) => setPreviewCourse(course);
+  const closePreview = () => setPreviewCourse(null);
 
-  const filtered = allCourses.filter((c) => {
+  // Convert various YouTube URL formats to an embeddable URL
+  const toYouTubeEmbed = (url) => {
+    if (!url) return null;
+    try {
+      const u = new URL(url);
+      if (u.hostname.includes('youtu.be')) {
+        return `https://www.youtube.com/embed/${u.pathname.slice(1)}?rel=0`;
+      }
+      if (u.hostname.includes('youtube.com')) {
+        const id = u.searchParams.get('v');
+        if (id) return `https://www.youtube.com/embed/${id}?rel=0`;
+        if (u.pathname.startsWith('/embed/')) return url;
+      }
+    } catch {}
+    return null;
+  };
+
+  const filtered = (courses || []).filter((c) => {
     const q = query.trim().toLowerCase();
-    const matchesQ = !q || c.title.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q);
+    const matchesQ = !q || (c.title?.toLowerCase().includes(q) || c.desc?.toLowerCase().includes(q));
     const matchesCat = category === 'All' || c.category === category;
     const matchesLevel = level === 'All' || c.level === level;
     return matchesQ && matchesCat && matchesLevel;
@@ -73,15 +129,24 @@ export default function Courses({ lang, t }) {
       <section className="py-12 lg:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 lg:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {filtered.slice(0,8).map((c) => (
-              <CourseCard key={c.id} course={c} t={t} onPreview={openPreview} />
+            {loading && (
+              <div className="col-span-full text-center text-gray-500">Loading courses…</div>
+            )}
+            {!loading && error && (
+              <div className="col-span-full text-center text-red-600">{error}</div>
+            )}
+            {!loading && !error && filtered.length === 0 && (
+              <div className="col-span-full text-center text-gray-500">{t?.('courses.empty') || 'No courses found.'}</div>
+            )}
+            {!loading && !error && filtered.map((c) => (
+              <CourseCard key={c.id} course={c} t={t} onPreview={() => openPreview(c)} />
             ))}
           </div>
         </div>
       </section>
 
       {/* Preview Modal */}
-      {showPreview && (
+      {previewCourse && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -116,7 +181,7 @@ export default function Courses({ lang, t }) {
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
                 className="absolute inset-0 h-full w-full"
-                src="https://www.youtube.com/embed/RsRI0QRjdQc?rel=0"
+                src={toYouTubeEmbed(previewCourse?.video_url) || 'https://www.youtube.com/embed/RsRI0QRjdQc?rel=0'}
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

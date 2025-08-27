@@ -1,10 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { supabase } from '../lib/supabaseClient';
 
 export default function Contact() {
   // Read language from persisted setting (set by App)
   let lang = 'en';
   try { lang = localStorage.getItem('dc_lang') || 'en'; } catch {}
   const tr = (en, am) => (lang === 'am' ? am : en);
+  const [status, setStatus] = useState('idle'); // idle | submitting | success | error
+  const [error, setError] = useState('');
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (status === 'submitting') return;
+    setError('');
+    setStatus('submitting');
+    const formEl = e.currentTarget;
+    const form = new FormData(formEl);
+    const first_name = (form.get('firstName') || '').toString().trim();
+    const last_name = (form.get('lastName') || '').toString().trim();
+    const email = (form.get('email') || '').toString().trim();
+    const subject = (form.get('subject') || '').toString().trim();
+    const message = (form.get('message') || '').toString().trim();
+
+    try {
+      const { error: err } = await supabase
+        .from('contact_messages')
+        .insert([{ first_name, last_name, email, subject, message }]);
+      if (err) throw err;
+      setStatus('success');
+      formEl.reset();
+    } catch (err) {
+      setError(err.message || 'Failed to send message');
+      setStatus('error');
+    } finally {
+      setTimeout(() => setStatus('idle'), 1800);
+    }
+  };
   return (
     <main className="bg-white">
       {/* Title */}
@@ -30,7 +61,7 @@ export default function Contact() {
 
           {/* Form */}
           <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 sm:p-8">
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={onSubmit}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">{tr('First name', 'ስም')}</label>
@@ -43,7 +74,7 @@ export default function Contact() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">{tr('Email', 'ኢሜይል')}</label>
-                <input type="email" name="email" className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input required type="email" name="email" className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">{tr('Subject', 'ርዕስ')}</label>
@@ -53,8 +84,13 @@ export default function Contact() {
                 <label className="block text-sm font-medium text-gray-700">{tr('Message', 'መልዕክት')}</label>
                 <textarea name="message" rows={5} className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
+              {error && (
+                <p className="text-sm text-red-600">{error}</p>
+              )}
               <div>
-                <button type="submit" className="inline-flex items-center justify-center rounded-full bg-blue-600 text-white px-6 py-3 font-semibold shadow-sm hover:bg-blue-700">{tr('Send message', 'መልዕክት ላክ')}</button>
+                <button type="submit" disabled={status==='submitting'} className={`inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold shadow-sm text-white ${status==='submitting' ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}>
+                  {status==='submitting' ? tr('Sending…','በመላክ ላይ…') : status==='success' ? tr('Sent ✓','ተልኳል ✓') : tr('Send message','መልዕክት ላክ')}
+                </button>
               </div>
             </form>
           </div>

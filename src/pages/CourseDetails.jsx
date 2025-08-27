@@ -22,17 +22,46 @@ export default function CourseDetails({ lang, t }) {
     { k: 'category', label: t?.(`courses.categories.${category}`) || category, value: '' },
   ];
 
-  const outcomes = [
-    t?.('courses.details.outcome1') || 'Understand core concepts and regulatory context.',
-    t?.('courses.details.outcome2') || 'Apply learning to realistic, Ethiopian scenarios.',
-    t?.('courses.details.outcome3') || 'Demonstrate competence via interactive assessments.',
-  ];
+  // Prefer DB-provided outcomes/curriculum if available (arrays or comma-separated strings)
+  const outcomes =
+    Array.isArray(course.outcomes) && course.outcomes.length
+      ? course.outcomes
+      : typeof course.outcomes === 'string' && course.outcomes.trim()
+      ? course.outcomes.split(',').map(s => s.trim()).filter(Boolean)
+      : [
+          t?.('courses.details.outcome1') || 'Understand core concepts and regulatory context.',
+          t?.('courses.details.outcome2') || 'Apply learning to realistic, Ethiopian scenarios.',
+          t?.('courses.details.outcome3') || 'Demonstrate competence via interactive assessments.',
+        ];
 
-  const curriculum = [
-    t?.('courses.details.module1') || 'Module 1 — Foundations and definitions',
-    t?.('courses.details.module2') || 'Module 2 — Risks and red flags',
-    t?.('courses.details.module3') || 'Module 3 — Controls and reporting',
-  ];
+  const curriculum =
+    Array.isArray(course.curriculum) && course.curriculum.length
+      ? course.curriculum
+      : typeof course.curriculum === 'string' && course.curriculum.trim()
+      ? course.curriculum.split(',').map(s => s.trim()).filter(Boolean)
+      : [
+          t?.('courses.details.module1') || 'Module 1 — Foundations and definitions',
+          t?.('courses.details.module2') || 'Module 2 — Risks and red flags',
+          t?.('courses.details.module3') || 'Module 3 — Controls and reporting',
+        ];
+
+  // Normalize YouTube URLs for embedding
+  const toYouTubeEmbed = (url) => {
+    if (!url) return null;
+    try {
+      const u = new URL(url);
+      if (u.hostname.includes('youtu.be')) {
+        return `https://www.youtube.com/embed/${u.pathname.slice(1)}?rel=0`;
+      }
+      if (u.hostname.includes('youtube.com')) {
+        const vid = u.searchParams.get('v');
+        if (vid) return `https://www.youtube.com/embed/${vid}?rel=0`;
+        if (u.pathname.startsWith('/embed/')) return url;
+      }
+    } catch {}
+    return null;
+  };
+  const videoEmbed = toYouTubeEmbed(course.video_url) || 'https://www.youtube.com/embed/RsRI0QRjdQc?rel=0';
 
   return (
     <div className="min-h-screen">
@@ -74,11 +103,11 @@ export default function CourseDetails({ lang, t }) {
             </div>
 
             {/* Video */}
-            <motion.div initial={{opacity:0,y:6}} animate={{opacity:1,y:0}} transition={{duration:0.35}} className="rounded-2xl overflow-hidden shadow-md border border-gray-100 bg-black">
+    <motion.div initial={{opacity:0,y:6}} animate={{opacity:1,y:0}} transition={{duration:0.35}} className="rounded-2xl overflow-hidden shadow-md border border-gray-100 bg-black">
               <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                 <iframe
                   className="absolute inset-0 h-full w-full"
-                  src="https://www.youtube.com/embed/RsRI0QRjdQc?rel=0"
+      src={videoEmbed}
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
