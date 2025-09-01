@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { supabase } from '../lib/supabaseClient';
+import { createLead } from '../lib/api';
 
 export default function Demo({ lang, t }) {
   const [status, setStatus] = useState('idle'); // idle | submitting | success
@@ -23,9 +23,8 @@ export default function Demo({ lang, t }) {
     const msg = (form.get('msg') || '').toString().trim();
 
     try {
-      const payload = { first_name, last_name, email, org, role, size, topics, time, phone, msg, status: 'got' };
-      const { error } = await supabase.from('demo_leads').insert([payload]);
-      if (error) throw error;
+  const payload = { first_name, last_name, email, org, role, size, topics, time, phone, msg, status: 'got' };
+  await createLead(payload);
       setStatus('success');
       formEl.reset();
     } catch (err) {

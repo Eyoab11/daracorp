@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { supabase } from '../lib/supabaseClient';
+import { createContact } from '../lib/api';
 
 export default function Contact() {
   // Read language from persisted setting (set by App)
@@ -23,10 +23,7 @@ export default function Contact() {
     const message = (form.get('message') || '').toString().trim();
 
     try {
-      const { error: err } = await supabase
-        .from('contact_messages')
-        .insert([{ first_name, last_name, email, subject, message }]);
-      if (err) throw err;
+  await createContact({ first_name, last_name, email, subject, message });
       setStatus('success');
       formEl.reset();
     } catch (err) {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import CourseCard from '../shared/CourseCard';
 import CourseImage from '../assets/daracorp_courses.png'
-import { supabase } from '../lib/supabaseClient';
+import { getCourses } from '../lib/api';
 
 export default function Courses({ lang, t }) {
   // Using only Supabase data; no hardcoded fallback
@@ -17,14 +17,7 @@ export default function Courses({ lang, t }) {
       setLoading(true);
       setError('');
   try {
-        const { data, error: err } = await supabase
-          .from('courses')
-          .select('*')
-          .order('created_at', { ascending: false });
-        
-        if (err) {
-          throw err;
-        }
+  const data = await getCourses()
         
         if (!mounted) return;
         
