@@ -1,4 +1,6 @@
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1'
+const envUrl = import.meta.env.VITE_API_URL
+const isLocal = typeof window !== 'undefined' && (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+const BASE_URL = envUrl || (isLocal ? 'http://localhost:4000/api/v1' : 'https://daracorp-backend.onrender.com/api/v1')
 
 export async function createContact(payload) {
   const res = await fetch(`${BASE_URL}/contacts`, {
