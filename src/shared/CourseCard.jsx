@@ -4,12 +4,18 @@ import { Link } from 'react-router-dom';
 
 export default function CourseCard({ course, t, onPreview }) {
   const { title, desc, duration, modules, level, category, id, card_desc, image_url } = course;
-  const seed = encodeURIComponent(id || title || Math.random().toString(36).slice(2));
+  const seed = encodeURIComponent(String(id || title || Math.random().toString(36).slice(2)));
+  const titleQ = encodeURIComponent(String(title || 'training'));
+  const catQ = encodeURIComponent(String(category || 'education'));
+  const unsplashPrimary = `https://source.unsplash.com/640x480/?${titleQ},${catQ}&sig=${seed}`;
+  const fallbackUrl = `https://source.unsplash.com/640x480/?${catQ}&sig=${seed}`;
   const placeholder = `https://picsum.photos/seed/${seed}/640/480`;
-  const fallbackUrl = `https://source.unsplash.com/random/640x480?${encodeURIComponent(category || 'training')}`;
+  const svgPlaceholder = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480"><rect width="100%" height="100%" fill="#e5e7eb"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9ca3af" font-size="16">Image unavailable</text></svg>`
+  );
   const baseDesc = (card_desc || desc || '').toString();
   const shortDesc = baseDesc.length > 140 ? baseDesc.slice(0, 137) + '…' : baseDesc;
-  const imageUrl = image_url || placeholder;
+  const imageUrl = image_url || unsplashPrimary;
 
   return (
     <motion.article
@@ -26,7 +32,22 @@ export default function CourseCard({ course, t, onPreview }) {
           src={imageUrl}
           alt={`${title} course`}
           loading="lazy"
-          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = fallbackUrl; }}
+          referrerPolicy="no-referrer"
+          data-attempt="0"
+          onError={(e) => {
+            const img = e.currentTarget;
+            const attempt = Number(img.dataset.attempt || '0');
+            if (attempt === 0) {
+              img.dataset.attempt = '1';
+              img.src = fallbackUrl;
+            } else if (attempt === 1) {
+              img.dataset.attempt = '2';
+              img.src = placeholder;
+            } else {
+              img.onerror = null;
+              img.src = svgPlaceholder;
+            }
+          }}
           className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />

@@ -135,7 +135,7 @@ export default function CourseDetails({ lang, t }) {
           <div className="lg:col-span-2">
             <h2 className="text-xl font-bold text-gray-900">{t?.('courses.details.overview') || 'Overview'}</h2>
             <p className="mt-2 text-gray-700 leading-relaxed">
-              {t?.('courses.details.overviewBody') || 'This course blends short expert videos, role-plays, and scenario-based assessments. Content is localized for Ethiopia and mapped to relevant directives and best practices.'}
+              {course.overview || (t?.('courses.details.overviewBody') || 'This course blends short expert videos, role-plays, and scenario-based assessments. Content is localized for Ethiopia and mapped to relevant directives and best practices.')}
             </p>
 
             <h3 className="mt-6 text-lg font-semibold text-gray-900">{t?.('courses.details.curriculum') || 'Curriculum'}</h3>
@@ -157,12 +157,23 @@ export default function CourseDetails({ lang, t }) {
           <aside className="lg:col-span-1">
             <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
               <h4 className="text-sm font-semibold text-gray-900">{t?.('courses.details.includes') || 'Includes'}</h4>
-              <ul className="mt-2 space-y-1 text-sm text-gray-700 list-disc pl-5">
-                <li>{t?.('courses.details.cert') || 'Digital certificate'}</li>
-                <li>{t?.('courses.details.quiz') || 'Quizzes and assessments'}</li>
-                <li>{t?.('courses.details.mobile') || 'Mobile friendly'}</li>
-                <li>{t?.('courses.details.langs') || 'English and Amharic'}</li>
-              </ul>
+              {(() => {
+                const includes = Array.isArray(course.includes) && course.includes.length
+                  ? course.includes
+                  : [
+                      t?.('courses.details.cert') || 'Digital certificate',
+                      t?.('courses.details.quiz') || 'Quizzes and assessments',
+                      t?.('courses.details.mobile') || 'Mobile friendly',
+                      t?.('courses.details.langs') || 'English and Amharic',
+                    ];
+                return (
+                  <ul className="mt-2 space-y-1 text-sm text-gray-700 list-disc pl-5">
+                    {includes.map((it, i) => (
+                      <li key={i}>{it}</li>
+                    ))}
+                  </ul>
+                );
+              })()}
               <div className="mt-4 flex flex-col gap-2">
                 <Link to="/demo" className="rounded-xl bg-blue-600 text-white px-4 py-2 text-sm font-semibold shadow-sm hover:bg-blue-700">{t?.('nav.demo') || 'Get a demo'}</Link>
                 <Link to="/contact" className="rounded-xl border border-gray-300 text-gray-900 px-4 py-2 text-sm font-semibold hover:bg-gray-100">{t?.('nav.contact') || 'Contact'}</Link>
