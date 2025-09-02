@@ -4,6 +4,7 @@ import Carousel from '../shared/Carousel';
 import Feature from '../shared/Feature';
 import Contact from '../shared/Contact';
 import BottomCTA from '../shared/BottomCTA';
+import HeroImage from '../assets/heroimage.png';
 
 export default function Home({ lang, ui, trainings, t, setLang }) {
   return (
@@ -59,32 +60,15 @@ export default function Home({ lang, ui, trainings, t, setLang }) {
             </div>
           </div>
 
-          {/* Right card */}
+      {/* Right image */}
           <div className="relative lg:pl-8">
             <motion.div
-              whileHover={{ scale: 1.03, rotate: -0.3 }}
-              whileTap={{ scale: 0.99 }}
-              transition={{ type: 'spring', stiffness: 220, damping: 18 }}
-              className="aspect-[4/3] w-full rounded-3xl bg-white shadow-2xl p-8 grid place-items-center border border-gray-100 hover:shadow-[0_30px_60px_-15px_rgba(31,41,55,0.25)] transition-shadow"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.995 }}
+        transition={{ type: 'spring', stiffness: 220, damping: 18 }}
+        className="aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-2xl border border-gray-100 hover:shadow-[0_30px_60px_-15px_rgba(31,41,55,0.25)] transition-shadow"
             >
-              <div className="text-center">
-                <svg width="120" height="90" viewBox="0 0 120 90" className="mx-auto" aria-hidden="true">
-                  <rect x="12" y="40" rx="6" ry="6" width="60" height="40" fill="#22c55e" />
-                  <rect x="24" y="30" rx="6" ry="6" width="60" height="40" fill="#f472b6" />
-                  <rect x="36" y="20" rx="6" ry="6" width="60" height="40" fill="#60a5fa" />
-                  <rect x="18" y="46" width="48" height="6" fill="#fff" opacity="0.8" />
-                  <rect x="30" y="36" width="48" height="6" fill="#fff" opacity="0.85" />
-                  <rect x="42" y="26" width="48" height="6" fill="#fff" opacity="0.9" />
-                </svg>
-                <p className="mt-4 text-gray-900 font-semibold text-lg">
-                  {lang === 'en' ? '8 core modules • 60–90 min each' : '8 ዋና ሞጁሎች • በአንዱ 60–90 ደቂቃ'}
-                </p>
-                <p className="mt-2 text-gray-600 text-sm md:text-base max-w-sm">
-                  {lang === 'en'
-                    ? 'Designed for banks, brokers, advisers, CMSPs, and more'
-                    : 'ለባንኮች፣ ማመንጨቶች፣ አማካሪዎች፣ CMSPs እና ሌሎች የተነደፈ'}
-                </p>
-              </div>
+        <img src={HeroImage} alt="DaraCorp training hero" className="h-full w-full object-cover" />
             </motion.div>
           </div>
         </div>

@@ -1,22 +1,27 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useLocation, useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { trainings as allTrainings } from '../data/trainings';
 
 export default function CourseDetails({ lang, t }) {
   const { id } = useParams();
   const { state } = useLocation();
-  const course = state?.course || state || {};
+  const training = useMemo(() => allTrainings.find(c => String(c.id) === String(id)), [id]);
+  const localized = training?.[lang];
+  const course = state?.course || state || localized || {};
 
   // Fallbacks if course data wasn't provided via navigation state
   const title = course.title || (t?.('courses.details.defaultTitle') || 'Course Details');
-  const desc = course.desc || (t?.('courses.details.defaultDesc') || 'Explore the objectives, curriculum, and outcomes for this course.');
+  const desc = course.desc || course.blurb || (t?.('courses.details.defaultDesc') || 'Explore the objectives, curriculum, and outcomes for this course.');
   const category = course.category || 'Compliance';
   const duration = course.duration || 60;
-  const modules = course.modules || 6;
+  const modules = Array.isArray(course.modules) ? course.modules.length : (course.modules || 6);
   const level = course.level || 'Beginner';
 
+  // If duration already includes units (e.g., '60–75 min' or '60–75 ደቂቃ'), display as-is without appending label
+  const durationHasUnits = typeof duration === 'string' && /min|ደቂቃ/i.test(duration);
   const facts = [
-    { k: 'duration', label: t?.('courses.units.min') || 'min', value: duration },
+    { k: 'duration', label: durationHasUnits ? '' : (t?.('courses.units.min') || 'min'), value: duration },
     { k: 'modules', label: t?.('courses.units.modules') || 'modules', value: modules },
     { k: 'level', label: t?.(`courses.levels.${level}`) || level, value: '' },
     { k: 'category', label: t?.(`courses.categories.${category}`) || category, value: '' },
@@ -28,22 +33,26 @@ export default function CourseDetails({ lang, t }) {
       ? course.outcomes
       : typeof course.outcomes === 'string' && course.outcomes.trim()
       ? course.outcomes.split(',').map(s => s.trim()).filter(Boolean)
-      : [
-          t?.('courses.details.outcome1') || 'Understand core concepts and regulatory context.',
-          t?.('courses.details.outcome2') || 'Apply learning to realistic, Ethiopian scenarios.',
-          t?.('courses.details.outcome3') || 'Demonstrate competence via interactive assessments.',
-        ];
+      : (Array.isArray(course.objectives) && course.objectives.length
+        ? course.objectives
+        : [
+            t?.('courses.details.outcome1') || 'Understand core concepts and regulatory context.',
+            t?.('courses.details.outcome2') || 'Apply learning to realistic, Ethiopian scenarios.',
+            t?.('courses.details.outcome3') || 'Demonstrate competence via interactive assessments.',
+          ]);
 
   const curriculum =
     Array.isArray(course.curriculum) && course.curriculum.length
       ? course.curriculum
       : typeof course.curriculum === 'string' && course.curriculum.trim()
       ? course.curriculum.split(',').map(s => s.trim()).filter(Boolean)
-      : [
-          t?.('courses.details.module1') || 'Module 1 — Foundations and definitions',
-          t?.('courses.details.module2') || 'Module 2 — Risks and red flags',
-          t?.('courses.details.module3') || 'Module 3 — Controls and reporting',
-        ];
+      : (Array.isArray(course.modules) && course.modules.length
+        ? course.modules
+        : [
+            t?.('courses.details.module1') || 'Module 1 — Foundations and definitions',
+            t?.('courses.details.module2') || 'Module 2 — Risks and red flags',
+            t?.('courses.details.module3') || 'Module 3 — Controls and reporting',
+          ]);
 
   // Normalize YouTube URLs for embedding
   const toYouTubeEmbed = (url) => {

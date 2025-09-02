@@ -16,7 +16,7 @@ export function Dashboard({ trainings, lang }) {
             <p className="text-gray-600 mt-2">{c[lang].blurb}</p>
             <div className="mt-4 flex items-center justify-between">
               <span className="text-sm text-gray-500">{c[lang].duration}</span>
-              <Link to={`/training/${c.id}`} className="text-sm font-semibold text-blue-600">View</Link>
+              <Link to={`/courses/${c.id}`} className="text-sm font-semibold text-blue-600">View</Link>
             </div>
           </article>
         ))}

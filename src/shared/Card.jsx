@@ -12,7 +12,7 @@ export default function Card({ course, id, lang }) {
         <p className="text-base text-gray-600 flex-grow">{course.blurb}</p>
         <div className="mt-6 flex items-center justify-between">
           <button onClick={() => { navigate('/dashboard'); }} className="text-base font-semibold text-blue-600 hover:underline">{lang === 'en' ? 'Get pricing' : 'ዋጋ ይጠይቁ'}</button>
-          <Link to={`/training/${id}`} className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-700 px-4 py-2 text-sm font-semibold hover:bg-blue-200 transition-colors">{lang === 'en' ? 'Learn more' : 'ተጨማሪ ይመልከቱ'}</Link>
+          <Link to={`/courses/${id}`} className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-700 px-4 py-2 text-sm font-semibold hover:bg-blue-200 transition-colors">{lang === 'en' ? 'Learn more' : 'ተጨማሪ ይመልከቱ'}</Link>
         </div>
       </div>
   </motion.article>
