@@ -3,9 +3,10 @@ import { motion } from 'framer-motion';
 import CourseCard from '../shared/CourseCard';
 import CourseImage from '../assets/daracorp_courses.png'
 import { getCourses } from '../lib/api';
+import { trainings as baseTrainings } from '../data/trainings';
 
 export default function Courses({ lang, t }) {
-  // Using only Supabase data; no hardcoded fallback
+  // Combine backend courses (first) with base trainings (appended at the end)
 
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,8 +22,8 @@ export default function Courses({ lang, t }) {
         
         if (!mounted) return;
         
-        // Map and filter data
-        const mapped = (data || [])
+        // Map and filter backend data (newest first if createdAt present)
+        const backend = (data || [])
           .filter(c => c.is_published === true) // Only show published courses
           .map(c => ({
             id: c.id,
@@ -36,8 +37,34 @@ export default function Courses({ lang, t }) {
             video_url: c.video_url,
             outcomes: c.outcomes,
             curriculum: c.curriculum,
+            createdAt: c.createdAt || c.created_at || null,
           }));
-        setCourses(mapped);
+
+        const sortedBackend = backend.sort((a, b) => {
+          const da = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+          const db = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+          return db - da; // newest first
+        });
+
+        // Map base trainings to the same shape and append after backend
+        const base = (baseTrainings || []).map((bt) => {
+          const loc = bt?.[lang] || bt?.en || {};
+          return {
+            id: bt.id,
+            title: loc.title,
+            desc: loc.desc || loc.blurb,
+            category: 'Compliance',
+            level: 'Beginner',
+            duration: loc.duration || 0,
+            modules: Array.isArray(loc.modules) ? loc.modules.length : (loc.modules || 0),
+            image_url: undefined,
+            video_url: loc.video_url,
+            outcomes: loc.objectives,
+            curriculum: loc.curriculum,
+          };
+        });
+
+        setCourses([...sortedBackend, ...base]);
       } catch (e) {
         setError(e.message || 'Failed to load courses');
       } finally {
