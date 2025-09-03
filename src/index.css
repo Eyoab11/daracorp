@@ -219,13 +219,17 @@ body.dark-theme .lang-menu button:hover { background-color: #374151; }
 
 /* Hero gradient surface */
 .hero-gradient {
-  background-image: radial-gradient(1200px 600px at 20% 10%, rgba(59, 130, 246, 0.08), transparent),
-    linear-gradient(180deg, #ffffff 0%, #f0f7ff 60%, #e8f1ff 100%);
+  background-image: radial-gradient(1200px 600px at 20% 10%, rgba(59, 130, 246, 0.10), transparent),
+    linear-gradient(180deg, #4f46e5 0%, #3b82f6 30%, #60a5fa 55%, #ffffff 100%);
 }
 body.dark-theme .hero-gradient {
-  background-image: radial-gradient(1200px 600px at 20% 10%, rgba(59, 130, 246, 0.12), transparent),
-    linear-gradient(180deg, #0b1220 0%, #0f172a 50%, #111827 100%);
+  background-image: radial-gradient(1200px 600px at 20% 10%, rgba(59, 130, 246, 0.16), transparent),
+    linear-gradient(180deg, #0b1220 0%, #0f172a 55%, #111827 100%);
 }
+
+/* Hero wave divider fill: white in light mode, dark surface in dark mode */
+.hero-divider-fill { fill: #ffffff; }
+body.dark-theme .hero-divider-fill { fill: #111827; }
 
 /* Courses page hero image with overlay */
 .courses-hero {
@@ -357,4 +361,18 @@ body.dark-theme .sector-card {
   box-shadow: 0 20px 25px -5px rgba(0,0,0,0.38), 0 10px 10px -5px rgba(0,0,0,0.28) !important;
   background-image: radial-gradient(800px 400px at 10% 0%, rgba(99,102,241,0.10), transparent);
   outline: 1px solid rgba(148,163,184,0.18);
+}
+
+/* Marquee (continuous horizontal scroll) */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee { position: relative; }
+.marquee-track { width: 200%; display: flex; animation: marquee-scroll var(--marquee-duration, 30s) linear infinite; }
+.marquee-row { padding-left: 1rem; padding-right: 1rem; }
+.marquee-mask { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0) 80px, rgba(255,255,255,0) calc(100% - 80px), rgba(255,255,255,1)); }
+body.dark-theme .marquee-mask { background: linear-gradient(90deg, rgba(17,24,39,1), rgba(17,24,39,0) 80px, rgba(17,24,39,0) calc(100% - 80px), rgba(17,24,39,1)); }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; transform: translateX(0); }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Carousel from '../shared/Carousel';
 import Feature from '../shared/Feature';
 import Contact from '../shared/Contact';
@@ -15,64 +16,69 @@ export default function Home({ lang, ui, trainings, t, setLang }) {
         transition={{ duration: 0.45 }}
         className="relative hero-gradient min-h-[calc(100vh-5rem)]"
       >
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24 grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left copy */}
-          <div className="text-left">
+  <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 lg:py-12 grid lg:grid-cols-2 gap-16 items-center min-h-[calc(100vh-5rem)]">
+          {/* Hero copy */}
+          <div className="text-left transform-gpu -translate-y-3 md:-translate-y-4">
             <span className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-800 px-4 py-2 text-sm font-semibold">
               {t('badge')}
             </span>
-            <h1 className="mt-6 text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight">
-              {t('heroTitle')}
+            <h1 className="mt-3 text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight">
+              {lang === 'am' ? 'DaraCorp የኢንዱስትሪ ዝግጁ ስልጠና' : 'DaraCorp industry-ready training'}
             </h1>
-            <p className="mt-6 text-gray-600 text-lg md:text-xl max-w-2xl">
-              {t('heroBody')}
+            <p className="mt-3 text-gray-600 text-base md:text-lg max-w-2xl">
+              {lang === 'am'
+        ? 'አጭር እና በሁኔታ የተመረጡ ትምህርቶች ከተግባራዊ ልምምድ ጋር። ፈጣን እና መለካት የሚቻል ውጤት ይግኙ እና አፈጻጸም ያሻሽሉ።'
+        : 'Short, scenario-based lessons with hands-on practice. Track progress and improve performance faster.'}
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <button
-                onClick={() => document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' })}
+              <Link
+                to="/demo"
                 className="rounded-full bg-blue-600 text-white px-6 md:px-8 py-3 md:py-4 text-sm md:text-base font-semibold shadow-lg hover:bg-blue-700 transition-colors"
               >
-                {ui[lang].labels?.browse || 'Browse courses'}
-              </button>
+                {lang === 'am' ? 'ዴሞ ይጠይቁ' : 'Get demo'}
+              </Link>
               <button
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 className="rounded-full bg-white text-gray-900 px-6 md:px-8 py-3 md:py-4 text-sm md:text-base font-semibold shadow-md border border-gray-200 hover:bg-gray-50"
               >
-                {lang === 'am' ? 'ከሽያጭ ቡድን ጋር ይነጋገሩ' : 'Talk to sales'}
+                {lang === 'am' ? 'እኛን ያነጋግሩ' : 'Contact us'}
               </button>
             </div>
-
-            {/* Feature bullets */}
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 text-sm md:text-base text-gray-700">
-              {[
-                lang === 'am' ? 'በመመሪያ የተመረጡ ሞጁሎች' : 'Directive-referenced modules',
-                lang === 'am' ? 'አጭር ፣ በሁኔታ የተመረጡ ቪዲዮዎች' : 'Short, scenario-based videos',
-                lang === 'am' ? 'የLMS ዝግጁ SCORM ኤክስፖርት' : 'LMS-ready SCORM exports',
-                lang === 'am' ? 'የሂደት ትከታተል እና ፈተናዎች' : 'Progress tracking & quizzes',
-              ].map((text, i) => (
-                <div key={i} className="flex items-start gap-2">
-                  <svg className="h-5 w-5 text-blue-600 mt-0.5 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 10-1.214-.882l-3.01 4.14-1.59-1.59a.75.75 0 10-1.06 1.06l2.25 2.25a.75.75 0 001.14-.09l3.484-4.889z" clipRule="evenodd" />
-                  </svg>
-                  <span>{text}</span>
-                </div>
-              ))}
+          </div>
+          {/* Right image only */}
+          <div className="relative z-20 lg:pl-8">
+            <div className="transform-gpu md:scale-105 lg:scale-110">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.995 }}
+              transition={{ type: 'spring', stiffness: 220, damping: 18 }}
+              className="aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-2xl border border-gray-100 hover:shadow-[0_30px_60px_-15px_rgba(31,41,55,0.25)] transition-shadow"
+            >
+              <img src={HeroImage} alt="DaraCorp training hero" className="h-full w-full object-cover" />
+            </motion.div>
             </div>
           </div>
-
-      {/* Right image */}
-          <div className="relative lg:pl-8">
-            <motion.div
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.995 }}
-        transition={{ type: 'spring', stiffness: 220, damping: 18 }}
-        className="aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-2xl border border-gray-100 hover:shadow-[0_30px_60px_-15px_rgba(31,41,55,0.25)] transition-shadow"
-            >
-        <img src={HeroImage} alt="DaraCorp training hero" className="h-full w-full object-cover" />
-            </motion.div>
-          </div>
+        </div>
+        {/* Zigzag/wave divider at bottom */}
+  <div className="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden z-0" aria-hidden="true">
+          <svg
+            className="block w-[200%] -translate-x-1/4 h-[28vh] md:h-[34vh] lg:h-[38vh]"
+            viewBox="0 0 1440 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              className="hero-divider-fill"
+              d="M0,18
+                 C120,2 240,42 360,18
+                 C480,6 600,80 720,20
+                 C840,0 960,72 1080,16
+                 C1200,8 1320,68 1440,22
+                 L1440,120 L0,120 Z"
+            ></path>
+          </svg>
         </div>
       </motion.section>
+      
 
       <motion.section id="courses" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.4 }} className="py-20 lg:py-28 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
