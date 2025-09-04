@@ -246,11 +246,13 @@ body.dark-theme .courses-hero-overlay {
 
 /* Footer surface and divider */
 .footer-surface {
-  background-image: linear-gradient(180deg, #f4f7ff 0%, #f7f9ff 60%, #eef2ff 100%);
+  background-image: radial-gradient(1200px 600px at 20% 10%, rgba(59, 130, 246, 0.10), transparent),
+    linear-gradient(180deg, #4f46e5 0%, #3b82f6 30%, #60a5fa 55%, #ffffff 100%);
   color: #0f172a;
 }
 body.dark-theme .footer-surface {
-  background-image: linear-gradient(180deg, #0b1220 0%, #0f172a 60%, #111827 100%);
+  background-image: radial-gradient(1200px 600px at 20% 10%, rgba(59, 130, 246, 0.16), transparent),
+    linear-gradient(180deg, #0b1220 0%, #0f172a 55%, #111827 100%);
   color: #e5e7eb;
 }
 .footer-divider {

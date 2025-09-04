@@ -1,9 +1,13 @@
 import React from 'react';
+import logoImg from '../assets/image.jpg';
 
-export default function Logo({ small }) {
+export default function Logo({ small, ...props }) {
   return (
-    <div className={`logo-tile grid place-items-center ${small ? 'h-10 w-10' : 'h-14 w-14'} rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold shadow-lg`} aria-label="DaraCorp logo">
-      <span className={small ? 'text-lg' : 'text-2xl'}>DC</span>
-    </div>
+    <img
+      src={logoImg}
+      alt="DaraCorp logo"
+      className={small ? 'h-10 w-10' : 'h-14 w-14'}
+      {...props}
+    />
   );
 }

@@ -18,6 +18,11 @@ export default function Demo({ lang, t }) {
     const role = (form.get('role') || '').toString().trim();
     const size = (form.get('size') || '').toString().trim();
     const topics = form.getAll('topics').map(v => v.toString());
+    const otherInterestRaw = (form.get('otherInterest') || '').toString().trim();
+    if (otherInterestRaw) {
+      const other = otherInterestRaw.slice(0, 60); // backend limit per item
+      if (!topics.includes(other)) topics.push(other);
+    }
     const time = (form.get('time') || '').toString().trim();
     const phone = (form.get('phone') || '').toString().trim();
     const msg = (form.get('msg') || '').toString().trim();
@@ -111,6 +116,11 @@ export default function Demo({ lang, t }) {
                       <span>{l}</span>
                     </label>
                   ))}
+                </div>
+                <div className="mt-3">
+                  <label className="block text-sm font-medium text-gray-700">{t('demo.form.otherInterest') || 'Other area of interest'}</label>
+                  <input name="otherInterest" maxLength={60} placeholder={t('demo.form.otherInterestPh') || 'Type your own topic'} className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                  <p className="mt-1 text-xs text-gray-500">{t('demo.form.otherInterestHint') || 'Optional — up to 60 characters.'}</p>
                 </div>
               </div>
 

@@ -11,6 +11,9 @@ import Why from './pages/Why';
 import Contact from './pages/Contact';
 import Demo from './pages/Demo';
 import CourseDetails from './pages/CourseDetails';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+import Security from './pages/Security';
 import { trainings as defaultTrainings } from './data/trainings';
 
 export default function App() {
@@ -426,6 +429,9 @@ function Shell() {
           <Route path="/why" element={<Why lang={lang} ui={ui} t={t} />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/demo" element={<Demo lang={lang} t={t} />} />
+          <Route path="/privacy" element={<Privacy t={t} lang={lang} />} />
+          <Route path="/terms" element={<Terms t={t} lang={lang} />} />
+          <Route path="/security" element={<Security t={t} lang={lang} />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AnimatePresence>

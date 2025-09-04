@@ -40,9 +40,9 @@ export default function Footer({ t }) {
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-600">{t('footer.legal') || 'Legal'}</h4>
             <ul className="mt-4 space-y-3">
-              <li><a href="#" className="hover:text-blue-700 transition-colors">{t('footerLinks.0')}</a></li>
-              <li><a href="#" className="hover:text-blue-700 transition-colors">{t('footerLinks.1')}</a></li>
-              <li><a href="#" className="hover:text-blue-700 transition-colors">{t('footerLinks.2')}</a></li>
+              <li><a href="/privacy" className="hover:text-blue-700 transition-colors">{t('footerLinks.0')}</a></li>
+              <li><a href="/terms" className="hover:text-blue-700 transition-colors">{t('footerLinks.1')}</a></li>
+              <li><a href="/privacy" className="hover:text-blue-700 transition-colors">{t('footerLinks.2')}</a></li>
             </ul>
           </div>
 
