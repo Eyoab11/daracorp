@@ -1,6 +1,15 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+// Local course cover images
+import amlImg from '../assets/aml.png';
+import codeImg from '../assets/code.png';
+import competencyImg from '../assets/competency.png';
+import conflictImg from '../assets/conflict.png';
+import cybersecurityImg from '../assets/cybersecurity.png';
+import insiderImg from '../assets/insider.png';
+import riskImg from '../assets/risk.png';
+import whistleblowingImg from '../assets/whistleblowing.png';
 
 function imageQueryById(id) {
   const map = {
@@ -27,6 +36,33 @@ export default function Card({ course, id, lang }) {
     `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect width="100%" height="100%" fill="#e5e7eb"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9ca3af" font-size="20">Image unavailable</text></svg>`
   );
 
+  // Resolve local asset by id first (robust across languages), then by first word of title
+  const byId = {
+    1: codeImg,
+    2: competencyImg,
+    3: riskImg,
+    4: whistleblowingImg,
+    5: conflictImg,
+    6: cybersecurityImg,
+    7: amlImg,
+    8: insiderImg,
+  };
+  const firstWord = String(course?.title || '')
+    .trim()
+    .split(/\s+/)[0]
+    .toLowerCase();
+  const byName = {
+    code: codeImg,
+    competency: competencyImg,
+    risk: riskImg,
+    whistleblowing: whistleblowingImg,
+    conflict: conflictImg,
+    cybersecurity: cybersecurityImg,
+    aml: amlImg,
+    insider: insiderImg,
+  };
+  const assetImg = byId[id] || byName[firstWord] || null;
+
   // Prefer long description for preview, trimmed for the card
   const fullDesc = String(course?.desc || course?.blurb || '');
   const previewDesc = (() => {
@@ -48,7 +84,7 @@ export default function Card({ course, id, lang }) {
       {/* Media header with image */}
       <div className="relative h-40">
         <img
-          src={unsplashUrl}
+          src={assetImg || unsplashUrl}
           alt={`${course.title} cover`}
           loading="lazy"
           referrerPolicy="no-referrer"
@@ -56,7 +92,11 @@ export default function Card({ course, id, lang }) {
           onError={(e) => {
             const img = e.currentTarget;
             const attempt = Number(img.dataset.attempt || '0');
-            if (attempt === 0) {
+            if (attempt === 0 && assetImg) {
+              // If local asset failed for any reason, try Unsplash fallback
+              img.dataset.attempt = '1';
+              img.src = unsplashUrl;
+            } else if (attempt === 0) {
               img.dataset.attempt = '1';
               img.src = fallbackUrl;
             } else if (attempt === 1) {

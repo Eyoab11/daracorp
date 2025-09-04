@@ -1,6 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+// Local course cover images for hardcoded/base trainings
+import amlImg from '../assets/aml.png';
+import codeImg from '../assets/code.png';
+import competencyImg from '../assets/competency.png';
+import conflictImg from '../assets/conflict.png';
+import cybersecurityImg from '../assets/cybersecurity.png';
+import insiderImg from '../assets/insider.png';
+import riskImg from '../assets/risk.png';
+import whistleblowingImg from '../assets/whistleblowing.png';
 
 export default function CourseCard({ course, t, onPreview }) {
   const { title, desc, duration, modules, level, category, id, card_desc, image_url } = course;
@@ -15,7 +24,33 @@ export default function CourseCard({ course, t, onPreview }) {
   );
   const baseDesc = (card_desc || desc || '').toString();
   const shortDesc = baseDesc.length > 140 ? baseDesc.slice(0, 137) + '…' : baseDesc;
-  const imageUrl = image_url || unsplashPrimary;
+  // Resolve local asset by id or first word for hardcoded courses
+  const byId = {
+    1: codeImg,
+    2: competencyImg,
+    3: riskImg,
+    4: whistleblowingImg,
+    5: conflictImg,
+    6: cybersecurityImg,
+    7: amlImg,
+    8: insiderImg,
+  };
+  const firstWord = String(title || '')
+    .trim()
+    .split(/\s+/)[0]
+    .toLowerCase();
+  const byName = {
+    code: codeImg,
+    competency: competencyImg,
+    risk: riskImg,
+    whistleblowing: whistleblowingImg,
+    conflict: conflictImg,
+    cybersecurity: cybersecurityImg,
+    aml: amlImg,
+    insider: insiderImg,
+  };
+  const assetImg = byId[id] || byName[firstWord] || null;
+  const imageUrl = image_url || assetImg || unsplashPrimary;
 
   return (
     <motion.article
@@ -37,7 +72,11 @@ export default function CourseCard({ course, t, onPreview }) {
           onError={(e) => {
             const img = e.currentTarget;
             const attempt = Number(img.dataset.attempt || '0');
-            if (attempt === 0) {
+            if (attempt === 0 && assetImg) {
+              // If local asset failed, fall back to Unsplash keyword image
+              img.dataset.attempt = '1';
+              img.src = unsplashPrimary;
+            } else if (attempt === 0) {
               img.dataset.attempt = '1';
               img.src = fallbackUrl;
             } else if (attempt === 1) {
