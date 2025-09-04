@@ -81,14 +81,28 @@ export default function Card({ course, id, lang }) {
       transition={{ duration: 0.3 }}
       className="snap-start shrink-0 w-80 sm:w-96 rounded-3xl border border-gray-200 bg-white shadow-lg flex flex-col overflow-hidden"
     >
-      {/* Media header with image */}
-      <div className="relative h-40">
+      {/* Media header with image (consistent 16:9) */}
+      <div className="relative aspect-[16/9] overflow-hidden">
         <img
           src={assetImg || unsplashUrl}
           alt={`${course.title} cover`}
           loading="lazy"
           referrerPolicy="no-referrer"
           data-attempt="0"
+          onLoad={(e) => {
+            try {
+              const img = e.currentTarget;
+              const { naturalWidth: w, naturalHeight: h } = img;
+              if (w && h && h > w) {
+                // Portrait: zoom in to normalize framing
+                img.style.transform = 'scale(1.18)';
+                img.style.objectPosition = '50% 38%';
+              } else {
+                img.style.transform = 'scale(1)';
+                img.style.objectPosition = 'center';
+              }
+            } catch {}
+          }}
           onError={(e) => {
             const img = e.currentTarget;
             const attempt = Number(img.dataset.attempt || '0');
@@ -107,7 +121,7 @@ export default function Card({ course, id, lang }) {
               img.src = svgPlaceholder;
             }
           }}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover transition-transform duration-500 ease-out"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 p-4 text-white">

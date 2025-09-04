@@ -62,13 +62,26 @@ export default function CourseCard({ course, t, onPreview }) {
       className="group rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-xl transition-all overflow-hidden h-full flex flex-col"
     >
       {/* media */}
-      <div className="relative aspect-[4/3] bg-gray-100">
+      <div className="relative aspect-[16/9] bg-gray-100 overflow-hidden">
         <img
           src={imageUrl}
           alt={`${title} course`}
           loading="lazy"
           referrerPolicy="no-referrer"
           data-attempt="0"
+          onLoad={(e) => {
+            try {
+              const img = e.currentTarget;
+              const { naturalWidth: w, naturalHeight: h } = img;
+              if (w && h && h > w) {
+                img.style.transform = 'scale(1.18)';
+                img.style.objectPosition = '50% 40%';
+              } else {
+                img.style.transform = 'scale(1)';
+                img.style.objectPosition = 'center';
+              }
+            } catch {}
+          }}
           onError={(e) => {
             const img = e.currentTarget;
             const attempt = Number(img.dataset.attempt || '0');
