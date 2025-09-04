@@ -64,13 +64,54 @@ export default function Carousel({ items, lang }) {
     };
   }, [items?.length]);
 
+  const scrollToSnap = (direction = 1) => {
+    try {
+      const el = trackRef.current;
+      if (!el) return;
+      lastInteractRef.current = Date.now();
+      const children = Array.from(el.children).filter((n) => n.nodeType === 1);
+      if (!children.length) return;
+      // Find the card whose left edge is closest to the container's left (visible start)
+      const containerLeft = el.getBoundingClientRect().left;
+      let currIndex = 0;
+      let best = Number.POSITIVE_INFINITY;
+      children.forEach((ch, idx) => {
+        const rect = /** @type {HTMLElement} */ (ch).getBoundingClientRect();
+        const dist = Math.abs(rect.left - containerLeft);
+        if (dist < best) { best = dist; currIndex = idx; }
+      });
+
+      const nextIndex = Math.min(
+        Math.max(currIndex + (direction >= 0 ? 1 : -1), 0),
+        children.length - 1
+      );
+      const targetLeft = /** @type {HTMLElement} */ (children[nextIndex]).offsetLeft;
+      el.scrollTo({ left: targetLeft, behavior: 'smooth' });
+    } catch {}
+  };
+
   return (
-    <div className="relative">
+    <div className="relative lg:flex lg:items-center lg:gap-3">
+      {/* Left side button (outside track) */}
+      <div className="hidden lg:block shrink-0">
+        <button
+          type="button"
+          aria-label={lang === 'am' ? 'ወደ ግራ ይንቀሳቀሱ' : 'Scroll previous'}
+          title={lang === 'am' ? 'ወደ ቀድሞው ካርድ' : 'Previous card'}
+          className="rounded-full bg-white/90 hover:bg-white text-gray-700 shadow-lg ring-1 ring-gray-200 hover:ring-blue-300 transition p-2"
+          onClick={() => scrollToSnap(-1)}
+        >
+          <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+      </div>
+
       <div
         ref={trackRef}
         role="region"
         aria-label={lang === 'am' ? 'የተመረጡ ኮርሶች ካሮሴል' : 'Featured courses carousel'}
-        className="group flex items-stretch gap-8 overflow-x-auto snap-x snap-mandatory pb-6 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="group flex-1 flex items-stretch gap-8 overflow-x-auto snap-x snap-mandatory pb-6 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         style={{ scrollBehavior: 'smooth' }}
       >
         {items.map((c) => (
@@ -96,6 +137,21 @@ export default function Carousel({ items, lang }) {
             </div>
           </div>
         </Link>
+      </div>
+
+      {/* Right side button (outside track) */}
+      <div className="hidden lg:block shrink-0">
+        <button
+          type="button"
+          aria-label={lang === 'am' ? 'ወደ ቀኝ ይንቀሳቀሱ' : 'Scroll next'}
+          title={lang === 'am' ? 'የሚቀጥለው ካርድ' : 'Next card'}
+          className="rounded-full bg-white/90 hover:bg-white text-gray-700 shadow-lg ring-1 ring-gray-200 hover:ring-blue-300 transition p-2"
+          onClick={() => scrollToSnap(1)}
+        >
+          <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
     </div>
   );
