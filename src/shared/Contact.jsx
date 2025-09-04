@@ -11,15 +11,16 @@ export default function Contact({ t }) {
     if (status === 'submitting') return;
     setStatus('submitting');
     setError('');
-    const form = new FormData(e.currentTarget);
+    const formEl = e.currentTarget;
+    const form = new FormData(formEl);
     const fullName = (form.get('fullName') || '').toString().trim();
     const email = (form.get('email') || '').toString().trim();
     const subject = (form.get('subject') || '').toString().trim();
     const message = (form.get('message') || '').toString().trim();
     try {
-      await createContact({ first_name: fullName, email, subject, message });
+  await createContact({ first_name: fullName, email, subject, message });
       setStatus('success');
-      e.currentTarget.reset();
+  formEl.reset();
     } catch (err) {
       setError(err?.message || 'Failed to send');
       setStatus('error');
