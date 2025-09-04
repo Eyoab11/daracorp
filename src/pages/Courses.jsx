@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import CourseCard from '../shared/CourseCard';
 import CourseImage from '../assets/daracorp_courses.png'
-import { getCourses } from '../lib/api';
+import { getCourses, getCachedCourses, prefetchCourses } from '../lib/api';
 import { trainings as baseTrainings } from '../data/trainings';
 
 export default function Courses({ lang, t }) {
@@ -15,10 +15,74 @@ export default function Courses({ lang, t }) {
   useEffect(() => {
     let mounted = true;
     const run = async () => {
-      setLoading(true);
+  // Try instant render from cache
+      const cached = getCachedCourses();
+      if (cached && mounted) {
+        try {
+          const backend = (cached || [])
+            .filter(c => c.is_published === true)
+            .map(c => ({
+              id: c.id,
+              title: c.title,
+              desc: c.description ?? c.desc,
+              category: c.category || 'General',
+              level: c.level || 'Beginner',
+              duration: c.duration || 0,
+              modules: c.modules || 0,
+              image_url: c.image_url,
+              video_url: c.video_url,
+              outcomes: c.outcomes,
+              curriculum: c.curriculum,
+              createdAt: c.createdAt || c.created_at || null,
+            }));
+          const sortedBackend = backend.sort((a, b) => {
+            const da = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+            const db = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+            return db - da;
+          });
+          const base = (baseTrainings || []).map((bt) => {
+            const loc = bt?.[lang] || bt?.en || {};
+            return {
+              id: bt.id,
+              title: loc.title,
+              desc: loc.desc || loc.blurb,
+              category: 'Compliance',
+              level: 'Beginner',
+              duration: loc.duration || 0,
+              modules: Array.isArray(loc.modules) ? loc.modules.length : (loc.modules || 0),
+              image_url: undefined,
+              video_url: loc.video_url,
+              outcomes: loc.objectives,
+              curriculum: loc.curriculum,
+            };
+          });
+          setCourses([...sortedBackend, ...base]);
+          setLoading(false);
+        } catch {}
+      } else {
+        // No cache: show base trainings instantly while fetching backend
+        const base = (baseTrainings || []).map((bt) => {
+          const loc = bt?.[lang] || bt?.en || {};
+          return {
+            id: bt.id,
+            title: loc.title,
+            desc: loc.desc || loc.blurb,
+            category: 'Compliance',
+            level: 'Beginner',
+            duration: loc.duration || 0,
+            modules: Array.isArray(loc.modules) ? loc.modules.length : (loc.modules || 0),
+            image_url: undefined,
+            video_url: loc.video_url,
+            outcomes: loc.objectives,
+            curriculum: loc.curriculum,
+          };
+        });
+        setCourses(base);
+        setLoading(false);
+      }
       setError('');
   try {
-  const data = await getCourses()
+  const data = await getCourses({ preferCache: true })
         
         if (!mounted) return;
         
@@ -72,6 +136,8 @@ export default function Courses({ lang, t }) {
       }
     };
     run();
+  // Prefetch in background in case cache was empty
+  prefetchCourses();
     return () => { mounted = false };
   }, []);
 

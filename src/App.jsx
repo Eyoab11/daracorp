@@ -15,6 +15,7 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Security from './pages/Security';
 import { trainings as defaultTrainings } from './data/trainings';
+import { prefetchCourses } from './lib/api';
 
 export default function App() {
   return (
@@ -35,6 +36,11 @@ function Shell() {
     try { localStorage.setItem('dc_lang', lang); } catch {}
     document.documentElement.setAttribute('lang', lang === 'am' ? 'am' : 'en');
   }, [lang]);
+
+  // Warm courses cache ASAP for instant render later
+  useEffect(() => {
+    prefetchCourses();
+  }, []);
 
   const ui = useMemo(() => ({
     en: {
