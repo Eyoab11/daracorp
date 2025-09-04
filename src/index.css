@@ -246,20 +246,18 @@ body.dark-theme .courses-hero-overlay {
 
 /* Footer surface and divider */
 .footer-surface {
-  background-image: radial-gradient(1200px 600px at 20% 10%, rgba(59, 130, 246, 0.10), transparent),
-    linear-gradient(180deg, #4f46e5 0%, #3b82f6 30%, #60a5fa 55%, #ffffff 100%);
-  color: #0f172a;
+  background-color: #2563eb; /* blue-600 */
+  color: #ffffff;
 }
 body.dark-theme .footer-surface {
-  background-image: radial-gradient(1200px 600px at 20% 10%, rgba(59, 130, 246, 0.16), transparent),
-    linear-gradient(180deg, #0b1220 0%, #0f172a 55%, #111827 100%);
-  color: #e5e7eb;
+  background-color: #1d4ed8; /* blue-700 for dark theme */
+  color: #ffffff;
 }
 .footer-divider {
   border-color: rgba(148, 163, 184, 0.6);
 }
 body.dark-theme .footer-divider {
-  border-color: rgba(75, 85, 99, 0.6);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 /* AfroLMS hero visuals: bright in light, moody in dark */
