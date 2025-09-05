@@ -104,7 +104,7 @@ export default function Demo({ lang, t }) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Quick highlights */}
           <aside className="lg:col-span-1">
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm demo-whatyouget">
               <h2 className="text-lg font-bold text-gray-900">{t('demo.sidebarTitle')}</h2>
               <ul className="mt-4 space-y-3 text-gray-700 text-sm">
                 {t('demo.sidebarItems')?.map((item) => (
@@ -113,7 +113,7 @@ export default function Demo({ lang, t }) {
                   </li>
                 ))}
               </ul>
-              <div className="mt-6 rounded-xl bg-blue-50 p-4 text-sm text-blue-900">
+              <div className="mt-6 rounded-xl bg-blue-50 p-4 text-sm text-blue-900 prefer-email">
                 {t('demo.sidebarEmailPrefix')} <a className="underline" href="mailto:hello@daracorp.com">hello@daracorp.com</a>
               </div>
             </div>

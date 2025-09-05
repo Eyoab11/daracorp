@@ -346,6 +346,21 @@ body.dark-theme .media-card-overlay + .grid > .rounded-2xl p.text-lg {
   color: #f9fafb !important; /* gray-50 */
 }
 
+/* Demo page: force white text for the "What you'll get" card and prefer-email line in dark mode only */
+body.dark-theme .demo-whatyouget {
+  color: #ffffff !important;
+}
+body.dark-theme .demo-whatyouget h2,
+body.dark-theme .demo-whatyouget ul li,
+body.dark-theme .demo-whatyouget a {
+  color: #ffffff !important;
+}
+/* Prefer email strip: ensure text becomes white in dark mode while keeping light mode styling intact */
+body.dark-theme .demo-whatyouget .prefer-email,
+body.dark-theme .demo-whatyouget .prefer-email a {
+  color: #ffffff !important;
+}
+
 /* Metric cards (AfroLMS stats) */
 .metric-card {
   position: relative;
