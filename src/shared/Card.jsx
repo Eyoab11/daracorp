@@ -132,8 +132,18 @@ export default function Card({ course, id, lang }) {
       <div className="p-6 flex-grow flex flex-col">
         <p className="text-base text-gray-600 flex-grow">{previewDesc}</p>
         <div className="mt-6 flex items-center justify-between">
-          <button onClick={() => { navigate('/demo'); }} className="text-base font-semibold text-blue-600 hover:underline">{lang === 'en' ? 'Get pricing' : 'ዋጋ ይጠይቁ'}</button>
-          <Link to={`/courses/${id}`} className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-700 px-4 py-2 text-sm font-semibold hover:bg-blue-200 transition-colors">{lang === 'en' ? 'Learn more' : 'ተጨማሪ ይመልከቱ'}</Link>
+          <button
+            onClick={() => { navigate('/demo'); }}
+            className="text-base font-semibold text-blue-600 hover:underline dark:text-white"
+          >
+            {lang === 'en' ? 'Get pricing' : 'ዋጋ ይጠይቁ'}
+          </button>
+          <Link
+            to={`/courses/${id}`}
+            className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-700 px-4 py-2 text-sm font-semibold hover:bg-blue-200 transition-colors dark:bg-blue-600 dark:text-white dark:hover:bg-blue-700"
+          >
+            {lang === 'en' ? 'Learn more' : 'ተጨማሪ ይመልከቱ'}
+          </Link>
         </div>
       </div>
     </motion.article>

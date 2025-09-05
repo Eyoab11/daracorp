@@ -98,6 +98,24 @@ body.dark-theme .bg-blue-50 { background-color: rgba(59, 130, 246, 0.08) !import
 body.dark-theme .bg-blue-100 { background-color: rgba(59, 130, 246, 0.18) !important; }
 body.dark-theme .text-blue-800 { color: #93c5fd !important; }
 
+/* Bottom CTA: force both buttons to blue backgrounds in dark mode */
+body.dark-theme .bottom-cta .primary-btn {
+  background-color: #2563eb !important; /* blue-600 */
+  color: #ffffff !important;
+  border-color: transparent !important;
+}
+body.dark-theme .bottom-cta .primary-btn:hover {
+  background-color: #1d4ed8 !important; /* blue-700 */
+}
+body.dark-theme .bottom-cta .secondary-btn {
+  background-color: #2563eb !important; /* blue-600 */
+  color: #ffffff !important;
+  border-color: transparent !important;
+}
+body.dark-theme .bottom-cta .secondary-btn:hover {
+  background-color: #1d4ed8 !important; /* blue-700 */
+}
+
 /* Slate palette overrides (Footer uses slate colors) */
 body.dark-theme .text-slate-900 { color: #f1f5f9 !important; }
 body.dark-theme .text-slate-800 { color: #e2e8f0 !important; }
@@ -184,6 +202,28 @@ body.dark-theme .logo-tile {
 body.dark-theme .nav-link { color: #cbd5e1; /* slate-300 */ }
 body.dark-theme .nav-link:hover { color: #93c5fd; /* blue-300 */ }
 body.dark-theme .nav-link-active { color: #60a5fa; /* blue-400 */ }
+
+/* Bottom CTA (light mode explicit) */
+body:not(.dark-theme) .bottom-cta {
+  /* Ensure bluish gradient in light mode as before */
+  background-image: linear-gradient(135deg, #1d4ed8 0%, #4338ca 100%) !important; /* blue-700 -> indigo-700 */
+}
+body:not(.dark-theme) .bottom-cta .primary-btn {
+  background-color: #ffffff !important; /* white */
+  color: #1d4ed8 !important; /* blue-700 */
+  border-color: transparent !important;
+}
+body:not(.dark-theme) .bottom-cta .primary-btn:hover {
+  background-color: #eff6ff !important; /* blue-50 */
+}
+body:not(.dark-theme) .bottom-cta .secondary-btn {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  border-color: rgba(255,255,255,0.7) !important;
+}
+body:not(.dark-theme) .bottom-cta .secondary-btn:hover {
+  background-color: rgba(255,255,255,0.10) !important;
+}
 
 /* Language pill (desktop) */
 .lang-button {
