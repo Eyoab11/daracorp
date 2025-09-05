@@ -134,7 +134,7 @@ export default function Card({ course, id, lang }) {
         <div className="mt-6 flex items-center justify-between">
           <button
             onClick={() => { navigate('/demo'); }}
-            className="text-base font-semibold text-blue-600 hover:underline dark:text-white"
+            className="get-pricing-btn text-base font-semibold text-blue-600 hover:underline dark:text-white"
           >
             {lang === 'en' ? 'Get pricing' : 'ዋጋ ይጠይቁ'}
           </button>

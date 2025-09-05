@@ -203,6 +203,11 @@ body.dark-theme .nav-link { color: #cbd5e1; /* slate-300 */ }
 body.dark-theme .nav-link:hover { color: #93c5fd; /* blue-300 */ }
 body.dark-theme .nav-link-active { color: #60a5fa; /* blue-400 */ }
 
+/* Featured course card: 'Get pricing' link color in light mode */
+body:not(.dark-theme) .get-pricing-btn {
+  color: #2563eb !important; /* blue-600 */
+}
+
 /* Bottom CTA (light mode explicit) */
 body:not(.dark-theme) .bottom-cta {
   /* Ensure bluish gradient in light mode as before */
@@ -278,7 +283,11 @@ body.dark-theme .hero-divider-fill { fill: #111827; }
   background-position: center;
 }
 .courses-hero-overlay {
-  background: rgba(255, 255, 255, 0.85);
+  /* Colorful tint for light mode: layered gradients + slight white wash for readability */
+  background-image:
+    radial-gradient(1000px 500px at 15% 10%, rgba(59,130,246,0.20), transparent), /* blue pop */
+    linear-gradient(180deg, rgba(99,102,241,0.18) 0%, rgba(59,130,246,0.14) 60%, rgba(59,130,246,0.10) 100%), /* indigo -> blue */
+    linear-gradient(0deg, rgba(255,255,255,0.35), rgba(255,255,255,0.35)); /* keep text contrast */
 }
 body.dark-theme .courses-hero-overlay {
   background: rgba(0, 0, 0, 0.7);
