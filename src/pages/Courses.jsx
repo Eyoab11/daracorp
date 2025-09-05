@@ -187,7 +187,7 @@ export default function Courses({ lang, t }) {
         <div className="absolute inset-0 courses-hero-overlay" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24 text-center">
           <motion.h1 initial={{opacity:0,y:6}} animate={{opacity:1,y:0}} transition={{duration:0.4}} className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900">{t?.('courses.heroTitle') || 'Explore DaraCorp Courses'}</motion.h1>
-          <motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.1,duration:0.4}} className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">{t?.('courses.heroBody') || 'Directive‑mapped learning built for Ethiopian organizations—short videos, role‑plays, and assessments.'}</motion.p>
+          <motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.1,duration:0.4}} className="courses-hero-subtitle mt-4 text-lg text-black dark:text-gray-300 max-w-2xl mx-auto">{t?.('courses.heroBody') || 'Directive‑mapped learning built for Ethiopian organizations—short videos, role‑plays, and assessments.'}</motion.p>
         </div>
       </section>
 

@@ -293,6 +293,12 @@ body.dark-theme .courses-hero-overlay {
   background: rgba(0, 0, 0, 0.7);
 }
 
+/* Courses hero subheadline: ensure pure black in light mode for readability */
+body:not(.dark-theme) .courses-hero-subtitle {
+  color: #000000 !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.15); /* minor lift on colorful overlay */
+}
+
 /* Footer surface and divider */
 .footer-surface {
   background-color: #2563eb; /* blue-600 */
