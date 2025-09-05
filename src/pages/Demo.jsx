@@ -1,8 +1,58 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createLead } from '../lib/api';
 
 export default function Demo({ lang, t }) {
   const [status, setStatus] = useState('idle'); // idle | submitting | success
+  // Broad areas list (sectors) for interest selection
+  const AREAS = useMemo(() => ([
+    'Banking & Finance',
+    'Capital Markets & Stock Market',
+    'Government & Public Sector',
+    'NGOs & Nonprofits',
+    'Healthcare',
+    'Education',
+    'Construction & Engineering',
+    'Manufacturing',
+    'Technology & Startups',
+    'Retail & E-commerce',
+    'Hospitality & Tourism',
+    'Insurance',
+    'Energy & Utilities',
+    'Agriculture & Agribusiness',
+    'Transportation & Logistics',
+    'Media & Communications',
+    'Real Estate',
+    'Telecommunications',
+    'Mining & Natural Resources',
+  ]), []);
+
+  // Multi-select dropdown state
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const [selectedTopics, setSelectedTopics] = useState([]);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const onDocClick = (e) => {
+      if (!dropdownRef.current) return;
+      if (!dropdownRef.current.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener('mousedown', onDocClick);
+    return () => document.removeEventListener('mousedown', onDocClick);
+  }, []);
+
+  const filteredAreas = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return AREAS;
+    return AREAS.filter(a => a.toLowerCase().includes(q));
+  }, [AREAS, query]);
+
+  const toggleSelect = (val) => {
+    setSelectedTopics((prev) => prev.includes(val)
+      ? prev.filter(v => v !== val)
+      : [...prev, val]
+    );
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +67,7 @@ export default function Demo({ lang, t }) {
     const org = (form.get('org') || '').toString().trim();
     const role = (form.get('role') || '').toString().trim();
     const size = (form.get('size') || '').toString().trim();
-    const topics = form.getAll('topics').map(v => v.toString());
+  const topics = selectedTopics.map(v => v.toString());
     const otherInterestRaw = (form.get('otherInterest') || '').toString().trim();
     if (otherInterestRaw) {
       const other = otherInterestRaw.slice(0, 60); // backend limit per item
@@ -32,6 +82,8 @@ export default function Demo({ lang, t }) {
   await createLead(payload);
       setStatus('success');
       formEl.reset();
+      setSelectedTopics([]);
+      setQuery('');
     } catch (err) {
       console.warn('Failed to submit demo request', err);
       setStatus('idle');
@@ -107,15 +159,73 @@ export default function Demo({ lang, t }) {
                 </div>
               </div>
 
-              <div className="mt-4">
+              <div className="mt-4" ref={dropdownRef}>
                 <label className="block text-sm font-medium text-gray-700">{t('demo.form.interestsTitle')}</label>
-                <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-700">
-                  {t('demo.form.interestsOptions')?.map((l) => (
-                    <label key={l} className="inline-flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-2">
-                      <input type="checkbox" name="topics" value={l} className="accent-blue-600" />
-                      <span>{l}</span>
-                    </label>
-                  ))}
+                {/* Searchable multi-select */}
+                <div className="mt-2">
+                  <button
+                    type="button"
+                    onClick={() => setOpen(v => !v)}
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-left focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    aria-haspopup="listbox"
+                    aria-expanded={open}
+                  >
+                    {selectedTopics.length === 0 && (
+                      <span className="text-gray-500">Select one or more areas</span>
+                    )}
+                    {selectedTopics.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {selectedTopics.map(v => (
+                          <span key={v} className="inline-flex items-center gap-1 rounded-full bg-blue-50 text-blue-800 px-2.5 py-1 text-xs">
+                            {v}
+                            <button type="button" onClick={(e) => { e.stopPropagation(); toggleSelect(v); }} aria-label={`Remove ${v}`}>×</button>
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </button>
+
+                  {open && (
+                    <div className="relative z-10">
+                      <div className="absolute mt-2 w-full rounded-lg border border-gray-200 bg-white shadow-lg">
+                        <div className="p-2 border-b border-gray-100">
+                          <input
+                            type="text"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            placeholder="Search areas..."
+                            className="w-full rounded-md border border-gray-200 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          />
+                        </div>
+                        <ul className="max-h-56 overflow-auto py-1 text-sm" role="listbox">
+                          {filteredAreas.map((opt) => {
+                            const active = selectedTopics.includes(opt);
+                            return (
+                              <li key={opt}>
+                                <button
+                                  type="button"
+                                  onClick={() => toggleSelect(opt)}
+                                  className={`w-full text-left px-3 py-2 hover:bg-gray-50 flex items-center gap-2 ${active ? 'bg-blue-50' : ''}`}
+                                  role="option"
+                                  aria-selected={active}
+                                >
+                                  <input type="checkbox" readOnly checked={active} className="accent-blue-600" />
+                                  <span>{opt}</span>
+                                </button>
+                              </li>
+                            );
+                          })}
+                          {filteredAreas.length === 0 && (
+                            <li className="px-3 py-2 text-gray-500">No matches</li>
+                          )}
+                        </ul>
+                        <div className="p-2 border-t border-gray-100 flex items-center justify-between text-xs text-gray-600">
+                          <span>{selectedTopics.length} selected</span>
+                          <button type="button" className="text-blue-700 hover:underline" onClick={() => setSelectedTopics([])}>Clear</button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <div className="mt-3">
                   <label className="block text-sm font-medium text-gray-700">{t('demo.form.otherInterest') || 'Other area of interest'}</label>
