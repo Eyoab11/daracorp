@@ -6,7 +6,7 @@ export default function Logo({ small, ...props }) {
     <img
       src={logoImg}
       alt="DaraCorp logo"
-      className={small ? 'h-10 w-10' : 'h-14 w-14'}
+  className={small ? 'h-10 w-auto object-contain' : 'h-14 w-auto object-contain'}
       {...props}
     />
   );
