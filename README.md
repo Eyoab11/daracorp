@@ -1,12 +1,50 @@
-# React + Vite
+## Daracorp Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Daracorp is a React + Vite single‑page application for showcasing and delivering corporate training (compliance, security, risk, whistleblowing, etc.). This package is the public marketing & course discovery site (separate admin + backend apps live in sibling folders).
 
-Currently, two official plugins are available:
+### Key Features
+- Modern React (hooks) + Vite for fast dev & builds
+- Re‑usable UI components (navigation, cards, carousel, lazy images)
+- Course & training data loading via lightweight API layer (`src/lib`)
+- Theming support (light/dark styles)
+- Route‑based pages under `src/pages`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Project Structure (excerpt)
+```
+src/
+	pages/        Top‑level routed pages (Home, Courses, Demo, etc.)
+	components/   Layout & shared UI (Navbar, Footer)
+	shared/       Reusable visual components (Card, Carousel, Marquee ...)
+	data/         Static training/course seed data
+	lib/          API helpers & external client setup
+```
 
-## Expanding the ESLint configuration
+### Development
+Install deps and start the local dev server:
+```
+npm install
+npm run dev
+```
+Build for production:
+```
+npm run build
+```
+Preview the production build:
+```
+npm run preview
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Environment
+Add any required environment variables (e.g. for Supabase) in a `.env` file following the examples referenced in `src/lib`.
+
+### Contributing
+Keep components small and composable, prefer colocated styles, and avoid introducing large dependencies without discussion.
+
+### License
+Internal project – license details TBD.
+
+
+# Link 
+
+https://daracorp.vercel.app/
+ 
