@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import BottomCTA from '../shared/BottomCTA';
-import AfrolmsHero from '../assets/trial.jpeg';
+import AfrolmsHero from '../assets/afrolms.png';
 import WorldMap from '../assets/world-map.svg';
 import Marquee from '../shared/Marquee';
 
